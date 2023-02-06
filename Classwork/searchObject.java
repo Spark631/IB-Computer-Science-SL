@@ -16,6 +16,16 @@ public class searchObject {
         Scanner input = new Scanner(System.in);
         searchObject[] array = new searchObject[3];
 
+        for(int i = 0; i < array.length; i++) {
+            System.out.println("Enter the account number: ");
+            int accountNumber = input.nextInt();
+            System.out.println("Enter the name: ");
+            String name = input.next();
+            System.out.println("Enter the balance: ");
+            double balance = input.nextDouble();
+            array[i] = new searchObject(accountNumber, name, balance);
+        }
+        
         array[0] = new searchObject(123, "Donny", 100000);
         array[2] = new searchObject(789, "Jackeline", 10);
         array[1] = new searchObject(456, "Derek", 5);
