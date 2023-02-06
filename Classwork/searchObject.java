@@ -1,3 +1,31 @@
+/*
+Donny Nguyen
+IB CS SL
+Run Cases:
+
+Enter the account number: 
+123
+Enter the name: 
+donny
+Enter the balance: 
+99999
+Enter the account number: 
+456
+Enter the name: 
+Jackeline
+Enter the balance: 
+10
+Enter the account number: 
+789
+Enter the name: 
+derek
+Enter the balance: 
+5
+Enter the account number you want to search for: 
+456
+The index of 456 is 1
+*/
+
 import java.util.Scanner;
 
 public class searchObject {
