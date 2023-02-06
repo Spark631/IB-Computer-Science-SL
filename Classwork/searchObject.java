@@ -25,10 +25,11 @@ public class searchObject {
             double balance = input.nextDouble();
             array[i] = new searchObject(accountNumber, name, balance);
         }
-        
-        array[0] = new searchObject(123, "Donny", 100000);
-        array[2] = new searchObject(789, "Jackeline", 10);
-        array[1] = new searchObject(456, "Derek", 5);
+
+        // this is manually entering the values into the array
+        // array[0] = new searchObject(123, "Donny", 100000);
+        // array[2] = new searchObject(456, "Jackeline", 10);
+        // array[1] = new searchObject(789, "Derek", 5);
 
         System.out.println("Enter the account number you want to search for: ");
         int target = input.nextInt();
