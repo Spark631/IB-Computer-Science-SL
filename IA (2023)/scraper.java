@@ -8,8 +8,16 @@ import java.io.IOException;
 
 public class scraper {
     public static void main(String[] args) throws IOException {
-        Document doc = Jsoup.connect("http://en.wikipedia.org/").get();
+        // Document doc = Jsoup.connect("http://en.wikipedia.org/").get();
+        Document doc = Jsoup.connect("https://finance.yahoo.com/quote/amzn?p=AAPL&.tsrc=fin-srch").get();
         log(doc.title());
+
+        // print out the price of the stock on yahoo finance
+        Elements price = doc.select("span[data-reactid='32']");
+        log(price.text());
+        // its not working
+
+
 
         Elements newsHeadlines = doc.select("#mp-itn b a");
         for (Element headline : newsHeadlines) {
