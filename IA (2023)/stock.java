@@ -1,4 +1,7 @@
-class stock {
+import java.io.*;
+import java.util.Arrays;
+
+class Stock {
     private String name;
     private String ticker;
     private int quantity;
@@ -7,9 +10,9 @@ class stock {
     private int marketCap;
     private int high;
     private int low;
-    private String[] sectors ;
+    private String sector ;
 
-    public stock(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String[] sectors ) {
+    public Stock(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String sector ) {
         this.name = name;
         this.ticker = ticker;
         this.quantity = quantity;
@@ -18,7 +21,7 @@ class stock {
         this.marketCap = marketCap;
         this.high = high;
         this.low = low;
-        this.sectors  = sectors ;
+        this.sector = sector;
     }
     
     //getting methods
@@ -54,8 +57,8 @@ class stock {
         return low;
     }
 
-    public String[] getBranches() {
-        return sectors ;
+    public String getSector() {
+        return sector;
     }
 
     //setting methods
@@ -91,19 +94,25 @@ class stock {
         this.low = low;
     }
 
-    public void setBranches(String[] sectors ) {
-        this.sectors  = sectors ;
+    public void setSector(String sector) {
+        this.sector  = sector ;
     }
 
-    public void display() {
-        System.out.println("Name: " + name);
-        System.out.println("Quantity: " + quantity);
-        System.out.println("Price: " + price);
-        System.out.println("Total: " + total);
+    public String display() {
+        // System.out.println("Name: " + name);
+        // System.out.println("Quantity: " + quantity);
+        // System.out.println("Price: " + price);
+        // System.out.println("Total: " + total);
+        return(name + "," + ticker + "," + quantity + "," + price + "," + total + "," + marketCap + "," + high + "," + low + "," + sector);
     }
-    public static void main(String args[]) {
-        stock s1 = new stock("Apple", "APPL",10, 100, 1000, 200, 50, new String[] {"Information Technology"});
-        s1.display();
+    public static void main(String args[]) throws IOException {
+
     }
 
+}
+
+class StockCalculations extends Stock {
+    public StockCalculations(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String sector) {
+        super(name, ticker, quantity, price, marketCap, high, low, sector);
+    }
 }
