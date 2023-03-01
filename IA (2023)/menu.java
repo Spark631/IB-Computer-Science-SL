@@ -9,21 +9,7 @@ class menu {
       StockDriver driver = new StockDriver();
 
       do {
-         System.out.println("Hi there! Welcome to the Stock Portfolio Manager!");
-
-         System.out.println("Please select an option from the menu below:");
-
-         System.out.println("1. Create a new portfolio");
-
-         System.out.println("2. Load an existing portfolio");
-
-         System.out.println("3. Save the current portfolio");
-
-         System.out.println("4. Display the current portfolio");
-
-         System.out.println("5. Add a stock to the portfolio");
-
-         System.out.println("6. Remove a stock from the portfolio");
+         driver.options();
          
          choice = input.nextInt();
 
@@ -35,11 +21,28 @@ class menu {
             case 2:
                System.out.println("You have selected to load an existing portfolio");
                break;
+            case 3:
+               System.out.println("You have selected to save the current portfolio");
+               break;
+            case 4:
+               System.out.println("You have selected to display the current portfolio");
+               break;
+            case 5:
+               System.out.println("You have selected to add a stock to the portfolio");
+               break;
+            case 6:
+               System.out.println("You have selected to remove a stock from the portfolio");
+               break;
+            case 7:
+               System.out.println("You have selected to sort the portfolio by price using quick sort");
+               driver.optionSeven();
+               break;
+
             default:
                System.out.println("Invalid choice");
                break;
          }
-      } while (choice != 3);
+      } while (choice != 6);
    }
 
    public static void mainInterface() {
