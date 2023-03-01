@@ -1,8 +1,14 @@
 import java.io.*;
 
+
+
 public class StockDriver {
     
     public static void main(String args[]) throws Exception {
+
+        menu startMenu = new menu();
+
+        startMenu.showMenu();
 
         Stock [] stocks = new Stock[] {
             new Stock("Apple", "AAPL", 100, 100.00, 10000, 1000000000, 100,"Technology"),
@@ -20,7 +26,6 @@ public class StockDriver {
             new Stock("Uber", "UBER", 1030, 10420.00, 18000, 10000, 1600,"Technology"),
             new Stock("Lyft", "LYFT", 1040, 1040.00, 100900, 100000, 1700,"Technology"),
             new Stock("Airbnb", "ABNB", 1500, 10410.00, 100000, 20000000, 1800,"Technology"),
-
         };
         FileOutputStream stream = new FileOutputStream("Stock.txt");
         PrintWriter writer = new PrintWriter(stream);
@@ -33,10 +38,11 @@ public class StockDriver {
         for (int i = 0; i < stocks.length; i++) {
             writer.println(stocks[i].display());
         }
-
-
         writer.close();
+    }
 
+    public void optionOne() {
+        System.out.println("Option 1");
     }
 
 }

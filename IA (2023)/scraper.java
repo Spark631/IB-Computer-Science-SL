@@ -11,6 +11,7 @@ public class scraper {
         Document doc = Jsoup.connect("https://finance.yahoo.com/quote/META?p=AAPL&.tsrc=fin-srch").get();
         log(doc.title());
 
+        //get the last fin-streamer element which contains the price of the selected stock
         Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
         log("Price: %s", price.text());
 
