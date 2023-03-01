@@ -47,7 +47,7 @@ class menu {
                System.out.println("Invalid choice");
                break;
          }
-      } while (choice != 6);
+      } while (choice != 8);
    }
 
    public static void mainInterface() {
