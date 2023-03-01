@@ -53,6 +53,26 @@ public class StockDriver {
         System.out.println("Option 1");
     }
 
+    public void optionTwo() {
+        System.out.println("Option 2");
+    }
+
+    public void optionThree() {
+        System.out.println("Option 3");
+    }
+
+    public void optionFour() {
+        System.out.println("Option 4");
+    }
+
+    public void optionFive() {
+        System.out.println("Option 5");
+    }
+
+    public void optionSix() {
+        System.out.println("Option 6");
+    }
+
     public void optionSeven() {
         System.out.println("Option 7");
         try {

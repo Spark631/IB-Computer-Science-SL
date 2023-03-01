@@ -20,18 +20,23 @@ class menu {
                break;
             case 2:
                System.out.println("You have selected to load an existing portfolio");
+               driver.optionTwo();
                break;
             case 3:
                System.out.println("You have selected to save the current portfolio");
+               driver.optionThree();
                break;
             case 4:
                System.out.println("You have selected to display the current portfolio");
+               driver.optionFour();
                break;
             case 5:
                System.out.println("You have selected to add a stock to the portfolio");
+               driver.optionFive();
                break;
             case 6:
                System.out.println("You have selected to remove a stock from the portfolio");
+               driver.optionSix();
                break;
             case 7:
                System.out.println("You have selected to sort the portfolio by price using quick sort");
