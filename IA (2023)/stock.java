@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.Arrays;
-
 class Stock {
     private String name;
     private String ticker;
@@ -99,20 +96,14 @@ class Stock {
     }
 
     public String display() {
-        // System.out.println("Name: " + name);
-        // System.out.println("Quantity: " + quantity);
-        // System.out.println("Price: " + price);
-        // System.out.println("Total: " + total);
-        return(name + "," + ticker + "," + quantity + "," + price + "," + total + "," + marketCap + "," + high + "," + low + "," + sector);
+        return(name + "," + ticker + "," + quantity + "," + price + "," + marketCap + "," + high + "," + low + "," + sector);
     }
-    public static void main(String args[]) throws IOException {
 
-    }
 
 }
 
-class StockCalculations extends Stock {
-    public StockCalculations(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String sector) {
-        super(name, ticker, quantity, price, marketCap, high, low, sector);
-    }
-}
+// class StockCalculations extends Stock {
+//     public StockCalculations(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String sector) {
+//         super(name, ticker, quantity, price, marketCap, high, low, sector);
+//     }
+// }
