@@ -15,8 +15,7 @@ public class scraper {
         Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
         log("Price: %s", price.text());
 
-    }
-
+    }   
     
     public String findStock(String stockName) throws IOException {
         Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch").get();
