@@ -42,12 +42,18 @@ class menu {
                System.out.println("You have selected to sort the portfolio by price using quick sort");
                driver.optionSeven();
                break;
+            case 8:
+               System.out.println("Enter the stock name: ");
+               String stockName = input.next();
+
+               driver.optionEight(stockName);
+               break;
 
             default:
                System.out.println("Invalid choice");
                break;
          }
-      } while (choice != 8);
+      } while (choice != 9);
    }
 
    public static void mainInterface() {

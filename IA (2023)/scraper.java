@@ -17,7 +17,18 @@ public class scraper {
 
     }
 
-    private static void log(String msg, String... vals) {
-        System.out.println(String.format(msg, vals));
+    
+    public String findStock(String stockName) throws IOException {
+        Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch").get();
+        
+        //get the last fin-streamer element which contains the price of the selected stock
+        Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
+        String stock = log("Price: %s", price.text());
+        return stock;
+    }
+
+    private static String log(String msg, String... vals) {
+        // System.out.println(String.format(msg, vals));
+        return String.format(msg, vals);
     }
 }

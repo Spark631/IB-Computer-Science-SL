@@ -47,6 +47,7 @@ public class StockDriver {
         System.out.println("5. Add a stock to the portfolio");
         System.out.println("6. Remove a stock from the portfolio");
         System.out.println("7. Sort the portfolio by price using quick sort");
+        System.out.println("8. Search Stock");
     }
 
     public void optionOne() {
@@ -107,6 +108,17 @@ public class StockDriver {
             }
 
             input.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+    }
+
+    public void optionEight(String name) {
+        try {
+            scraper scrape = new scraper();
+            String stock = scrape.findStock(name);
+            System.out.println(stock);
+            System.out.println("This should be working");
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
