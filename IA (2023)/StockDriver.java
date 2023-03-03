@@ -39,6 +39,10 @@ public class StockDriver {
         startMenu.showMenu();
     }
 
+    public void createPortfolio() {
+        System.out.println("Create a new portfolio");
+    }
+
     public void options(){
         System.out.println("1. Create a new portfolio");
         System.out.println("2. Load an existing portfolio");
