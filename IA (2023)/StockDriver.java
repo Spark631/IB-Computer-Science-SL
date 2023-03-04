@@ -121,8 +121,7 @@ public class StockDriver {
         try {
             scraper scrape = new scraper();
             String stock = scrape.findStock(name);
-            System.out.println(stock);
-            System.out.println("This should be working");
+            System.out.println(stock + "\n");
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
