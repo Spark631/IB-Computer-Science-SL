@@ -44,14 +44,30 @@ public class StockDriver {
     }
 
     public void options(){
-        System.out.println("1. Create a new portfolio");
-        System.out.println("2. Load an existing portfolio");
-        System.out.println("3. Save the current portfolio");
-        System.out.println("4. Display the current portfolio");
-        System.out.println("5. Add a stock to the portfolio");
-        System.out.println("6. Remove a stock from the portfolio");
-        System.out.println("7. Sort the portfolio by price using quick sort");
-        System.out.println("8. Search Stock");
+        // System.out.println("1. Create a new portfolio");
+        // System.out.println("2. Load an existing portfolio");
+        // System.out.println("3. Save the current portfolio");
+        // System.out.println("4. Display the current portfolio");
+        // System.out.println("5. Add a stock to the portfolio");
+        // System.out.println("6. Remove a stock from the portfolio");
+        // System.out.println("7. Sort the portfolio by price using quick sort");
+        // System.out.println("8. Search Stock");
+        System.out.println("+-------------------------------------+");
+        System.out.println("|      Welcome to Your Portfolio      |");
+        System.out.println("+-------------------------------------+");
+        System.out.println("| Please select an option:            |");
+        System.out.println("|                                     |");
+        System.out.println("| 1. Create a new portfolio           |");
+        System.out.println("| 2. Load an existing portfolio       |");
+        System.out.println("| 3. Save the current portfolio       |");
+        System.out.println("| 4. Display the current portfolio    |");
+        System.out.println("| 5. Add a stock to the portfolio     |");
+        System.out.println("| 6. Remove a stock from the portfolio|");
+        System.out.println("| 7. Sort the portfolio by price using|");
+        System.out.println("|    quick sort                       |");
+        System.out.println("| 8. Search Stock                     |");
+        System.out.println("|                                     |");
+        System.out.println("+-------------------------------------+");
     }
 
     public void optionOne() {
@@ -121,7 +137,10 @@ public class StockDriver {
         try {
             scraper scrape = new scraper();
             String stock = scrape.findStock(name);
+            System.out.println(scrape.createHashMap(name));
             System.out.println(stock + "\n");
+
+
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
