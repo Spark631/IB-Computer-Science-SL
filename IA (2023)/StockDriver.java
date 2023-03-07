@@ -135,7 +135,7 @@ public class StockDriver {
 
     public void optionEight(String name) {
         try {
-            scraper scrape = new scraper();
+            Scraper scrape = new Scraper();
             String stock = scrape.findStock(name);
             System.out.println(scrape.createHashMap(name));
             System.out.println(stock + "\n");

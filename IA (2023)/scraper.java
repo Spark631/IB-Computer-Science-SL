@@ -5,27 +5,18 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-public class scraper {
-    public static void main(String[] args) throws IOException {
-        Document doc = Jsoup.connect("https://finance.yahoo.com/quote/META?p=AAPL&.tsrc=fin-srch").get();
-        log(doc.title());
+public class Scraper {
 
-        //get the last fin-streamer element which contains the price of the selected stock
-        Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
-        log("Price: %s", price.text());
-
-    }   
-    
     public String findStock(String stockName) throws IOException {
-        Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch").get();
-        
-        //Gets the last fin-streamer element which contains the price of the selected stock
-        // Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
+        Document doc = Jsoup
+                .connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch").get();
+
+        // Gets the last fin-streamer element which contains the price of the selected
         Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
 
-        //Gets the last fin-streamer element which contains the price of the selected stock
+        // Gets the last fin-streamer element which contains the price of the selected
         Element title = doc.select("h1[class=D(ib) Fz(18px)]").first();
 
         // String scrapedPrice = log("Price: %s", price.text());
@@ -34,58 +25,40 @@ public class scraper {
         String scrapedPrice = price.text();
         String scrapedTitle = title.text();
 
-
         return scrapedPrice + "\n" + scrapedTitle;
 
     }
 
-    public Map<Integer, String> createHashMap(String stockName) {
-        Map<Integer, String> data = new HashMap<>();
-        
+    public Map<String, Double> createHashMap(String stockName) {
+        LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
+
         try {
-            Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "/history?p=" + stockName).get();
-            // Elements row = doc.select("tr[class=BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)]");
-            // Elements row = doc.select("tr[class=BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)]");
+            Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "/history?p=" + stockName)
+                    .get();
 
-            // Elements row = doc.select("td[class=Py(10px) Ta(start) Pend(10px)]");
-            // for(int i = 0; i < row.size(); i++) {
-            //     System.out.println(row.get(i).text());
-            // }
+            Elements rows = doc.select("table tbody tr");
+            for (Element row : rows) {
+                String date = row.select("td:nth-child(1) span").text();
+                String closePrice = row.select("td:nth-child(5) span").text();
 
-            // Elements closePrice = doc.select("td[class=Py(10px) Pstart(10px)]");
+                double closePriceDouble = Double.parseDouble(closePrice);
 
-            // for(int i = 0; i < closePrice.size(); i++) {
-            //     System.out.println(closePrice.get(i).text());
-            // }
+                data.put(date, closePriceDouble);
+            }
 
-            Element closePrice = doc.select("td[class=Py(10px) Pstart(10px)]");
+            DrawGraph draw = new DrawGraph(data);
+            draw.graph(data);
 
-            System.out.println(closePrice.text());
-
-
-            // Element element = doc.selectFirst("td[class=Py(10px) Ta(start) Pend(10px)]");
-            // System.out.println("This is: " + element);
-            // if (element != null) {
-            //     System.out.println(element);
-            // }     
-
-            // Elements col = row.select("td[class=Ta(end) Fw(600) Lh(14px)]");
-            // Elements col2 = row.select("td[class=Ta(end) Fw(600) Lh(14px) Pend(10px)]");
-
-
-
-            data.put(1, "Apple");
-            
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Error" + e);
         }
+
         return data;
-        
+
     }
 
-    private static String log(String msg, String... vals) {
-        //formats the string with the given values
-        return String.format(msg, vals);
-    }
+    // private static String log(String msg, String... vals) {
+    // //formats the string with the given values
+    // return String.format(msg, vals);
+    // }
 }
