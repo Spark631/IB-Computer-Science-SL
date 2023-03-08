@@ -7,13 +7,20 @@ class menu {
       int choice;
 
       StockDriver driver = new StockDriver();
-
+      Account account = new Account();
       do {
-         driver.options();
-         
+
+         try {
+            account.readUser();
+            driver.options();
+
+         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+         }
+
          choice = input.nextInt();
 
-         switch(choice) {
+         switch (choice) {
             case 1:
                System.out.println("You have selected to create a new portfolio");
                driver.optionOne();

@@ -6,11 +6,20 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import java.io.File;
+import java.util.Scanner;
 
 public class Account {
-    public void createAccount(String names) {
+    public void createAccount() {
         try {
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("Enter your name: ");
+            String firstName = input.nextLine();
+
+            input.close();
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
@@ -25,9 +34,10 @@ public class Account {
             rootElement.appendChild(user);
 
             Element name = doc.createElement("name");
-            name.appendChild(doc.createTextNode(names));
+            name.appendChild(doc.createTextNode(firstName));
             user.appendChild(name);
 
+            // Starting wallet
             Element wallet = doc.createElement("wallet");
             wallet.appendChild(doc.createTextNode("500"));
             user.appendChild(wallet);
@@ -65,4 +75,25 @@ public class Account {
             System.out.println("Error" + e);
         }
     }
+
+    public String readUser() {
+        try {
+            File inputFile = new File("account.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            NodeList userList = doc.getElementsByTagName("user");
+            Element user = (Element) userList.item(0);
+            String name = user.getElementsByTagName("name").item(0).getTextContent();
+            System.out.println("Name: " + name);
+            return name;
+        } catch (Exception e) {
+            // e.printStackTrace();
+            System.out.println("You need to make an account");
+            createAccount();
+        }
+        return null;
+    }
+
 }
