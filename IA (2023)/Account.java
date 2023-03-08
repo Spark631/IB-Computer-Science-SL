@@ -4,17 +4,12 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.File;
 
-import java.time.LocalDateTime;  
-import java.time.format.DateTimeFormatter;  
-
-
 public class Account {
-    public static void createAccount(String names) {
+    public void createAccount(String names) {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -36,30 +31,34 @@ public class Account {
             Element wallet = doc.createElement("wallet");
             wallet.appendChild(doc.createTextNode("500"));
             user.appendChild(wallet);
-            
+
             Element accountActivatedDate = doc.createElement("accountActivatedDate");
             accountActivatedDate.appendChild(doc.createTextNode(java.time.LocalDate.now().toString()));
             user.appendChild(accountActivatedDate);
-            
+
             // stock element
             // Element stock = doc.createElement("stock");
             // rootElement.appendChild(stock);
 
             // // set attribute to stock element
             // Attr attr = doc.createAttribute("name");
-            // attr.setValue("Google");    
+            // attr.setValue("Google");
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
             DOMSource source = new DOMSource(doc);
 
-            StreamResult result = new StreamResult(new File(""));
+            StreamResult result = new StreamResult(new File("account.xml"));
             transformer.transform(source, result);
 
             // Output to console for testing
             StreamResult consoleResult = new StreamResult(System.out);
             transformer.transform(source, consoleResult);
-
 
         } catch (Exception e) {
             // TODO: handle exception
