@@ -1,7 +1,0 @@
-// // TODO Auto-generated method stub
-// String url = "https://www.marketwatch.com/investing/stock/aapl";
-// Document doc = Jsoup.connect(url).get();
-// String title = doc.title();
-// System.out.println(title);
-// Elements price = doc.select("bg-quote");
-// System.out.println(price.text());
