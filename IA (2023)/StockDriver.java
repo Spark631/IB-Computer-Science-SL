@@ -24,11 +24,6 @@ public class StockDriver {
         };
         FileOutputStream stream = new FileOutputStream("Stock.txt");
         PrintWriter writer = new PrintWriter(stream);
-        // for (Stock stock : stocks) {
-        // stock.display();
-        // writer.println(stock.display());
-        // }
-
         for (int i = 0; i < stocks.length; i++) {
             writer.println(stocks[i].display());
         }
@@ -131,12 +126,33 @@ public class StockDriver {
         }
     }
 
-    public void optionEight(String name) {
+    public void optionEight(String stockName) {
         try {
             Scraper scrape = new Scraper();
-            String stock = scrape.findStock(name);
-            System.out.println(scrape.createHashMap(name));
+            String stock = scrape.findStock(stockName);
             System.out.println(stock + "\n");
+
+            System.out.println("1. To buy shares");
+            System.out.println("2. To view bar chart");
+
+            Scanner input = new Scanner(System.in);
+            int choice = input.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("How many shares would you like to buy?");
+                    int shares = input.nextInt();
+                    System.out.println("You have bought " + shares + " shares of " + stockName);
+                    break;
+                case 2:
+                    System.out.println(scrape.createHashMap(stockName));
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
+
+            input.close();
 
         } catch (Exception e) {
             System.out.println("Error" + e);
