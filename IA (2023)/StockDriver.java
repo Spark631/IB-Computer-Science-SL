@@ -44,20 +44,16 @@ public class StockDriver {
     }
 
     public void options() {
-        // System.out.println("1. Create a new portfolio");
-        // System.out.println("2. Load an existing portfolio");
-        // System.out.println("3. Save the current portfolio");
-        // System.out.println("4. Display the current portfolio");
-        // System.out.println("5. Add a stock to the portfolio");
-        // System.out.println("6. Remove a stock from the portfolio");
-        // System.out.println("7. Sort the portfolio by price using quick sort");
-        // System.out.println("8. Search Stock");
+        Account account = new Account();
+        String name = account.readUser();
         System.out.println("+-------------------------------------+");
-        System.out.println("|      Welcome to Your Portfolio      |");
+        System.out.printf("| Date: %-30s|\n", java.time.LocalDate.now());
+        System.out.println("+-------------------------------------+");
+        System.out.printf("|      Welcome, %-22s|\n", name);
         System.out.println("+-------------------------------------+");
         System.out.println("| Please select an option:            |");
         System.out.println("|                                     |");
-        System.out.println("| 1. Create a new portfolio           |");
+        System.out.println("| 1. View your portfolio              |");
         System.out.println("| 2. Load an existing portfolio       |");
         System.out.println("| 3. Save the current portfolio       |");
         System.out.println("| 4. Display the current portfolio    |");
@@ -65,7 +61,7 @@ public class StockDriver {
         System.out.println("| 6. Remove a stock from the portfolio|");
         System.out.println("| 7. Sort the portfolio by price using|");
         System.out.println("|    quick sort                       |");
-        System.out.println("| 8. Search Stock                     |");
+        System.out.println("| 8. Search for a stock               |");
         System.out.println("|                                     |");
         System.out.println("+-------------------------------------+");
     }
@@ -92,8 +88,6 @@ public class StockDriver {
 
     public void optionSix() {
         System.out.println("Option 6");
-        Account account = new Account();
-        account.createAccount("Donny");
     }
 
     public void optionSeven() {
