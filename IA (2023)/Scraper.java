@@ -9,24 +9,45 @@ import java.util.LinkedHashMap;
 
 public class Scraper {
 
-    public String findStock(String stockName) throws IOException {
-        Document doc = Jsoup
-                .connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch").get();
+    public String findStockName(String stockName) {
 
-        // Gets the last fin-streamer element which contains the price of the selected
-        Element price = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
+        String scrapedTitle = "";
+        try {
+            Document doc = Jsoup
+                    .connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch")
+                    .get();
 
-        // Gets the last fin-streamer element which contains the price of the selected
-        Element title = doc.select("h1[class=D(ib) Fz(18px)]").first();
+            // Gets the last fin-streamer element which contains the price of the selected
+            Element title = doc.select("h1[class=D(ib) Fz(18px)]").first();
 
-        // String scrapedPrice = log("Price: %s", price.text());
-        // String scrapedTitle = log("Title: %s", title.text());
+            scrapedTitle = title.text();
 
-        String scrapedPrice = price.text();
-        String scrapedTitle = title.text();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return scrapedTitle;
 
-        return "Current price of " + scrapedTitle + " is " + scrapedPrice;
+    }
 
+    public double findStockPrice(String stockName) {
+        double price = 0;
+        try {
+            Document doc = Jsoup
+                    .connect("https://finance.yahoo.com/quote/" + stockName + "?p=" + stockName + "&.tsrc=fin-srch")
+                    .get();
+
+            // Gets the last fin-streamer element which contains the price of the selected
+            Element priceElement = doc.select("fin-streamer[data-field=regularMarketPrice]").last();
+
+            String scrapedPrice = priceElement.text();
+
+            price = (double) Double.parseDouble(scrapedPrice);
+
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+
+        return price;
     }
 
     public Map<String, Double> createHashMap(String stockName) {
