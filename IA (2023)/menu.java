@@ -14,7 +14,6 @@ class menu {
       do {
          driver.options();
 
-         System.out.println("Please choose a opiton bitch");
          choice = input.nextInt();
 
          switch (choice) {
