@@ -129,12 +129,15 @@ public class StockDriver {
     public void optionEight(String stockName) {
         try {
             Scraper scrape = new Scraper();
-            String stock = scrape.findStock(stockName);
-            System.out.println(stock + "\n");
+            String stock = scrape.findStockName(stockName);
+            double stockPrice = scrape.findStockPrice(stockName);
+
+            System.out.println("Stock: " + stock);
+            System.out.println("Price: " + stockPrice);
 
             System.out.println("1. To buy shares");
             System.out.println("2. To view bar chart");
-            
+
             Scanner input = new Scanner(System.in);
             int choice = input.nextInt();
 
@@ -142,6 +145,17 @@ public class StockDriver {
                 case 1:
                     System.out.println("How many shares would you like to buy?");
                     int shares = input.nextInt();
+
+                    Account account = new Account();
+                    double balance = account.checkBalance();
+                    double total = (shares * stockPrice);
+                    if (total <= balance) {
+                        account.updateBalance(total);
+                    } else {
+                        System.out.println("Insufficient funds");
+                        break;
+                    }
+
                     System.out.println("You have bought " + shares + " shares of " + stockName);
                     break;
                 case 2:
@@ -151,8 +165,6 @@ public class StockDriver {
                     System.out.println("Invalid choice");
                     break;
             }
-
-            input.close();
 
         } catch (Exception e) {
             System.out.println("Error" + e);

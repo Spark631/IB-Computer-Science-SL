@@ -39,7 +39,7 @@ public class Account {
 
             // Starting wallet
             Element wallet = doc.createElement("wallet");
-            wallet.appendChild(doc.createTextNode("500"));
+            wallet.appendChild(doc.createTextNode("500.00"));
             user.appendChild(wallet);
 
             Element accountActivatedDate = doc.createElement("accountActivatedDate");
@@ -110,7 +110,7 @@ public class Account {
         return null;
     }
 
-    public int checkBalance() {
+    public double checkBalance() {
         try {
             File inputFile = new File("account.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -120,15 +120,40 @@ public class Account {
 
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
-            int balance = Integer.parseInt(user.getElementsByTagName("wallet").item(0).getTextContent());
-            // System.out.println("Balance: " + balance);
+            double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
 
             return balance;
         } catch (Exception e) {
-            // e.printStackTrace();
             System.out.println("Error" + e);
         }
         return 0;
+    }
+
+    public void updateBalance(double money) {
+        try {
+            System.out.println("This is money: " + money);
+            File inputFile = new File("account.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+
+            NodeList userList = doc.getElementsByTagName("user");
+            Element user = (Element) userList.item(0);
+            double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
+            balance += money;
+            user.getElementsByTagName("wallet").item(0).setTextContent(Double.toString(balance));
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("account.xml"));
+            transformer.transform(source, result);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
     }
 
 }

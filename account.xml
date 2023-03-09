@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Account>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
     <user>
         <name>Donny</name>
-        <wallet>500</wallet>
-        <accountActivatedDate>2023-03-08</accountActivatedDate>
+        <wallet>845.92</wallet>
+        <accountActivatedDate>2023-03-09</accountActivatedDate>
     </user>
 </Account>
