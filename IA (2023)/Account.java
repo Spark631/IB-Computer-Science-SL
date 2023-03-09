@@ -16,7 +16,7 @@ public class Account {
         try {
             Scanner infoInput = new Scanner(System.in);
 
-            System.out.println("Enter your name: ");
+            System.out.println("\nWhat is your first name?\n ");
             String firstName = infoInput.nextLine();
 
             // infoInput.close();
@@ -92,7 +92,19 @@ public class Account {
             return name;
         } catch (Exception e) {
             // e.printStackTrace();
-
+            System.out.println("\033[1m" + "  _________________________________________  " + "\033[0m");
+            System.out.println("\033[1m" + " /                                         \\" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[32mHello there Investor!" + "\033[0m" + "\033[1m"
+                    + "                   |" + "\033[0m");
+            System.out.println("\033[1m" + "|                                           |" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[33mLooks like you are new here.\033[0m" + "\033[1m"
+                    + "            |" + "\033[0m");
+            System.out.println("\033[1m" + "|                                           |" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[36mLet's get you started with a \033[0m" + "\033[1m"
+                    + "           |" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[36mnew account!\033[0m" + "\033[1m"
+                    + "                            |" + "\033[0m");
+            System.out.println("\033[1m" + " \\_________________________________________/ " + "\033[0m");
             createAccount();
         }
         return null;

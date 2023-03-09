@@ -44,7 +44,7 @@ public class StockDriver {
         System.out.println("+-------------------------------------+");
         System.out.printf("| Date: %-30s|\n", java.time.LocalDate.now());
         System.out.println("+-------------------------------------+");
-        System.out.printf("|      Welcome, %-22s|\n", name);
+        System.out.printf("| Welcome, %-22s|\n", name);
         System.out.println("+-------------------------------------+");
         System.out.println("| Please select an option:            |");
         System.out.println("|                                     |");
