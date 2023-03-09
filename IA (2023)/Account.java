@@ -110,4 +110,25 @@ public class Account {
         return null;
     }
 
+    public int checkBalance() {
+        try {
+            File inputFile = new File("account.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+
+            NodeList userList = doc.getElementsByTagName("user");
+            Element user = (Element) userList.item(0);
+            int balance = Integer.parseInt(user.getElementsByTagName("wallet").item(0).getTextContent());
+            // System.out.println("Balance: " + balance);
+
+            return balance;
+        } catch (Exception e) {
+            // e.printStackTrace();
+            System.out.println("Error" + e);
+        }
+        return 0;
+    }
+
 }
