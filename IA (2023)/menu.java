@@ -2,22 +2,19 @@ import java.util.Scanner;
 import java.io.*;
 
 class menu {
-   public void showMenu() {
+   public void showMenu() throws IOException {
+      Account account = new Account();
+      account.readUser();
+
       Scanner input = new Scanner(System.in);
-      int choice;
+      int choice = 0;
 
       StockDriver driver = new StockDriver();
-      Account account = new Account();
+
       do {
+         driver.options();
 
-         try {
-            account.readUser();
-            driver.options();
-
-         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-         }
-
+         System.out.println("Please choose a opiton bitch");
          choice = input.nextInt();
 
          switch (choice) {
@@ -60,7 +57,10 @@ class menu {
                System.out.println("Invalid choice");
                break;
          }
+
       } while (choice != 9);
+
+      input.close();
    }
 
    public static void mainInterface() {

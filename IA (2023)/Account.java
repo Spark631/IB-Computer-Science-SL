@@ -9,17 +9,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.io.File;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Account {
     public void createAccount() {
         try {
-            Scanner input = new Scanner(System.in);
+            Scanner infoInput = new Scanner(System.in);
 
-            System.out.println("Enter your name: ");
-            String firstName = input.nextLine();
+            System.out.println("\nWhat is your first name?\n ");
+            String firstName = infoInput.nextLine();
 
-            input.close();
-
+            // infoInput.close();
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
@@ -83,14 +83,28 @@ public class Account {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
+
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
             String name = user.getElementsByTagName("name").item(0).getTextContent();
             System.out.println("Name: " + name);
+
             return name;
         } catch (Exception e) {
             // e.printStackTrace();
-            System.out.println("You need to make an account");
+            System.out.println("\033[1m" + "  _________________________________________  " + "\033[0m");
+            System.out.println("\033[1m" + " /                                         \\" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[32mHello there Investor!" + "\033[0m" + "\033[1m"
+                    + "                   |" + "\033[0m");
+            System.out.println("\033[1m" + "|                                           |" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[33mLooks like you are new here.\033[0m" + "\033[1m"
+                    + "            |" + "\033[0m");
+            System.out.println("\033[1m" + "|                                           |" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[36mLet's get you started with a \033[0m" + "\033[1m"
+                    + "           |" + "\033[0m");
+            System.out.println("\033[1m" + "|   \033[36mnew account!\033[0m" + "\033[1m"
+                    + "                            |" + "\033[0m");
+            System.out.println("\033[1m" + " \\_________________________________________/ " + "\033[0m");
             createAccount();
         }
         return null;

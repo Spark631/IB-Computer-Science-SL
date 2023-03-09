@@ -25,7 +25,7 @@ public class Scraper {
         String scrapedPrice = price.text();
         String scrapedTitle = title.text();
 
-        return scrapedPrice + "\n" + scrapedTitle;
+        return "Current price of " + scrapedTitle + " is " + scrapedPrice;
 
     }
 
