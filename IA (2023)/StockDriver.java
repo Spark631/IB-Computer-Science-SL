@@ -134,7 +134,7 @@ public class StockDriver {
 
             System.out.println("1. To buy shares");
             System.out.println("2. To view bar chart");
-
+            
             Scanner input = new Scanner(System.in);
             int choice = input.nextInt();
 
