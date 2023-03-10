@@ -49,6 +49,19 @@ public class Scraper {
         return price;
     }
 
+    public String findSector(String stockName) {
+        try {
+            Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "/profile?p=" + stockName).get();
+
+            // Element sector = doc.select("span[class=Mstart(15px) Fw(600) Fz(12px) C($primaryColor)]").first();
+            Element sector = doc.select("span[class=Fw(600)]").first();
+            return sector.text();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null;
+    }
+
     public Map<String, Double> createHashMap(String stockName) {
         LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
 
