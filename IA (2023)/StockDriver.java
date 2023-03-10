@@ -123,6 +123,7 @@ public class StockDriver {
             
             System.out.println("1. To buy shares");
             System.out.println("2. To view bar chart");
+            System.out.println("3. To return to menu");
 
             Scanner input = new Scanner(System.in);
             int choice = input.nextInt();
@@ -147,6 +148,8 @@ public class StockDriver {
                 case 2:
                     System.out.println(scrape.createHashMap(stockName));
                     break;
+                case 3:
+                    System.out.println("Return to Menu");
                 default:
                     System.out.println("Invalid choice");
                     break;
