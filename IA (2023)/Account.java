@@ -76,7 +76,6 @@ public class Account {
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
             String name = user.getElementsByTagName("name").item(0).getTextContent();
-            System.out.println("Name: " + name);
 
             return name;
         } catch (Exception e) {
@@ -129,7 +128,8 @@ public class Account {
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
             double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
-            balance += money;
+            balance =  Math.round((balance - money) * 100.00)/ 100.00;
+            System.out.println("BALANCEEEEEE: " + balance);
             user.getElementsByTagName("wallet").item(0).setTextContent(Double.toString(balance));
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
