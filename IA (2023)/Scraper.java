@@ -2,8 +2,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
@@ -61,7 +59,6 @@ public class Scraper {
             for (Element row : rows) {
                 String date = row.select("td:nth-child(1) span").text();
                 String closePrice = row.select("td:nth-child(5) span").text();
-
                 double closePriceDouble = Double.parseDouble(closePrice);
 
                 data.put(date, closePriceDouble);
