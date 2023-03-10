@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.io.File;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Account {
     public void createAccount() {
@@ -29,7 +28,6 @@ public class Account {
             doc.appendChild(rootElement);
 
             // user element
-
             Element user = doc.createElement("user");
             rootElement.appendChild(user);
 
@@ -46,17 +44,8 @@ public class Account {
             accountActivatedDate.appendChild(doc.createTextNode(java.time.LocalDate.now().toString()));
             user.appendChild(accountActivatedDate);
 
-            // stock element
-            // Element stock = doc.createElement("stock");
-            // rootElement.appendChild(stock);
-
-            // // set attribute to stock element
-            // Attr attr = doc.createAttribute("name");
-            // attr.setValue("Google");
-
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-
             transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
@@ -131,7 +120,6 @@ public class Account {
 
     public void updateBalance(double money) {
         try {
-            System.out.println("This is money: " + money);
             File inputFile = new File("account.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -154,6 +142,51 @@ public class Account {
             System.out.println("Error: " + e);
         }
 
+    }
+
+    public void addStock(Stock stockInfo) {
+        try {
+            File inputFile = new File("account.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+
+            NodeList userList = doc.getElementsByTagName("user");
+            Element user = (Element) userList.item(0);
+
+            Element stock = doc.createElement("stock");
+            user.appendChild(stock);
+
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(stockInfo.getName()));
+            stock.appendChild(name);
+
+            Element ticker = doc.createElement("ticker");
+            ticker.appendChild(doc.createTextNode(stockInfo.getTicker()));
+            ticker.appendChild(ticker);
+
+            Element amountOfShares = doc.createElement("amountOfShares");
+            amountOfShares.appendChild(doc.createTextNode(Integer.toString(stockInfo.getAmountOfShares())));
+            stock.appendChild(amountOfShares);
+
+            // Element stockPrice = doc.createElement("stockPrice");
+            // stockPrice.appendChild(doc.createTextNode(Double.toString(stockInfo.getStockPrice())));
+            // stock.appendChild(stockPrice);
+
+            // Element stockQuantity = doc.createElement("stockQuantity");
+            // stockQuantity.appendChild(doc.createTextNode(Integer.toString(stockInfo.getStockQuantity())));
+            // stock.appendChild(stockQuantity);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("account.xml"));
+            transformer.transform(source, result);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
 }
