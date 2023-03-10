@@ -4,19 +4,19 @@ class Stock {
     private int amountOfShares;
     private double price;
     private double total;
-    private int marketCap;
+    private double net;
     private double totalOfMoneySpent;
     private double totalOfMoneyGained;
     private String sector;
 
-    public Stock(String name, String ticker, int amountOfShares, double price, int marketCap, double totalOfMoneySpent,
+    public Stock(String name, String ticker, int amountOfShares, double price, double net, double totalOfMoneySpent,
             double totalOfMoneyGained, String sector) {
         this.name = name;
         this.ticker = ticker;
         this.amountOfShares = amountOfShares;
         this.price = price;
         this.total = amountOfShares * price;
-        this.marketCap = marketCap;
+        this.net = net;
         this.totalOfMoneySpent = totalOfMoneySpent;
         this.totalOfMoneyGained = totalOfMoneyGained;
         this.sector = sector;
@@ -43,8 +43,8 @@ class Stock {
         return total;
     }
 
-    public int getMarketCap() {
-        return marketCap;
+    public double getNet() {
+        return net;
     }
 
     public double getTotalOfMoneySpent() {
@@ -68,7 +68,7 @@ class Stock {
         this.ticker = ticker;
     }
 
-    public void setQuantity(int amountOfShares) {
+    public void setAmountOfShares(int amountOfShares) {
         this.amountOfShares = amountOfShares;
     }
 
@@ -80,15 +80,15 @@ class Stock {
         this.total = total;
     }
 
-    public void setMarketCap(int marketCap) {
-        this.marketCap = marketCap;
+    public void setNet(double net) {
+        this.net = net;
     }
 
-    public void setHigh(int totalOfMoneySpent) {
+    public void setTotalOfMoneySpent(double totalOfMoneySpent) {
         this.totalOfMoneySpent = totalOfMoneySpent;
     }
 
-    public void setLow(int totalOfMoneyGained) {
+    public void setTotalOfMoneyGained(double totalOfMoneyGained) {
         this.totalOfMoneyGained = totalOfMoneyGained;
     }
 
@@ -96,18 +96,19 @@ class Stock {
         this.sector = sector;
     }
 
-    public String display() {
-        return (name + "," + ticker + "," + amountOfShares + "," + price + "," + marketCap + "," + totalOfMoneySpent
-                + "," + totalOfMoneyGained + "," + sector);
-    }
+    // public String display() {
+    // return (name + "," + ticker + "," + amountOfShares + "," + price + "," + net
+    // + "," + totalOfMoneySpent
+    // + "," + totalOfMoneyGained + "," + sector);
+    // }
 
 }
 
 // class StockCalculations extends Stock {
 // public StockCalculations(String name, String ticker, int amountOfShares,
-// double price, int marketCap, int totalOfMoneySpent, int totalOfMoneyGained,
+// double price, int net, int totalOfMoneySpent, int totalOfMoneyGained,
 // String sector) {
-// super(name, ticker, amountOfShares, price, marketCap, totalOfMoneySpent,
+// super(name, ticker, amountOfShares, price, net, totalOfMoneySpent,
 // totalOfMoneyGained, sector);
 // }
 // }
