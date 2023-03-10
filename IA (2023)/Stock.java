@@ -1,27 +1,28 @@
 class Stock {
     private String name;
     private String ticker;
-    private int quantity;
+    private int amountOfShares;
     private double price;
     private double total;
     private int marketCap;
-    private int high;
-    private int low;
-    private String sector ;
+    private double totalOfMoneySpent;
+    private double totalOfMoneyGained;
+    private String sector;
 
-    public Stock(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String sector ) {
+    public Stock(String name, String ticker, int amountOfShares, double price, int marketCap, double totalOfMoneySpent,
+            double totalOfMoneyGained, String sector) {
         this.name = name;
         this.ticker = ticker;
-        this.quantity = quantity;
+        this.amountOfShares = amountOfShares;
         this.price = price;
-        this.total = quantity * price;
+        this.total = amountOfShares * price;
         this.marketCap = marketCap;
-        this.high = high;
-        this.low = low;
+        this.totalOfMoneySpent = totalOfMoneySpent;
+        this.totalOfMoneyGained = totalOfMoneyGained;
         this.sector = sector;
     }
-    
-    //getting methods
+
+    // getting methods
     public String getName() {
         return name;
     }
@@ -30,8 +31,8 @@ class Stock {
         return ticker;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getAmountOfShares() {
+        return amountOfShares;
     }
 
     public double getPrice() {
@@ -46,29 +47,29 @@ class Stock {
         return marketCap;
     }
 
-    public int getHigh() {
-        return high;
+    public double getTotalOfMoneySpent() {
+        return totalOfMoneySpent;
     }
 
-    public int getLow() {
-        return low;
+    public double getTotalOfMoneyGained() {
+        return totalOfMoneyGained;
     }
 
     public String getSector() {
         return sector;
     }
 
-    //setting methods
+    // setting methods
     public void setName(String name) {
         this.name = name;
     }
 
     public void setTicker(String ticker) {
         this.ticker = ticker;
-    }   
+    }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(int amountOfShares) {
+        this.amountOfShares = amountOfShares;
     }
 
     public void setPrice(double price) {
@@ -83,27 +84,30 @@ class Stock {
         this.marketCap = marketCap;
     }
 
-    public void setHigh(int high) {
-        this.high = high;
+    public void setHigh(int totalOfMoneySpent) {
+        this.totalOfMoneySpent = totalOfMoneySpent;
     }
 
-    public void setLow(int low) {
-        this.low = low;
+    public void setLow(int totalOfMoneyGained) {
+        this.totalOfMoneyGained = totalOfMoneyGained;
     }
 
     public void setSector(String sector) {
-        this.sector  = sector ;
+        this.sector = sector;
     }
 
     public String display() {
-        return(name + "," + ticker + "," + quantity + "," + price + "," + marketCap + "," + high + "," + low + "," + sector);
+        return (name + "," + ticker + "," + amountOfShares + "," + price + "," + marketCap + "," + totalOfMoneySpent
+                + "," + totalOfMoneyGained + "," + sector);
     }
-
 
 }
 
 // class StockCalculations extends Stock {
-//     public StockCalculations(String name, String ticker, int quantity, double price, int marketCap, int high, int low, String sector) {
-//         super(name, ticker, quantity, price, marketCap, high, low, sector);
-//     }
+// public StockCalculations(String name, String ticker, int amountOfShares,
+// double price, int marketCap, int totalOfMoneySpent, int totalOfMoneyGained,
+// String sector) {
+// super(name, ticker, amountOfShares, price, marketCap, totalOfMoneySpent,
+// totalOfMoneyGained, sector);
+// }
 // }
