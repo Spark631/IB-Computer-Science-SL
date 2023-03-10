@@ -19,11 +19,12 @@ public class Scraper {
             Element title = doc.select("h1[class=D(ib) Fz(18px)]").first();
 
             scrapedTitle = title.text();
-
+            return scrapedTitle;
+            
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            System.out.println("Please Try Again" + e);
         }
-        return scrapedTitle;
+        return null;
 
     }
 

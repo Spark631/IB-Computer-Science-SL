@@ -113,9 +113,14 @@ public class StockDriver {
             String stock = scrape.findStockName(stockName);
             double stockPrice = scrape.findStockPrice(stockName);
 
+            if (stock == null) {
+                System.out.println("Stock not found");
+                return;
+            }
+
             System.out.println("Stock: " + stock);
             System.out.println("Price: " + stockPrice);
-
+            
             System.out.println("1. To buy shares");
             System.out.println("2. To view bar chart");
 
