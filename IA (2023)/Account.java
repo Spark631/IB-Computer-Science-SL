@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.io.File;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 public class Account {
     public void createAccount() {
@@ -103,7 +104,7 @@ public class Account {
         return 0;
     }
 
-    public Stock getStock() {
+    public LinkedList<Stock> getStock() {
         try {
             File inputFile = new File("account.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -112,16 +113,21 @@ public class Account {
             doc.getDocumentElement().normalize();
             NodeList stockList = doc.getElementsByTagName("Stock");
 
+            LinkedList<Stock> stockLists = new LinkedList<Stock>();
+
+            Stock stock = new Stock("","",0,0.0,0.0,0.0,0.0,"");
+
             for (int i = 0; i < stockList.getLength(); i++) {
-                Element stock = (Element) stockList.item(i);
-                String name = stock.getElementsByTagName("name").item(0).getTextContent();
-                String ticker = stock.getElementsByTagName("ticker").item(0).getTextContent();
-                String amountOfShares = stock.getElementsByTagName("amountOfShares").item(0).getTextContent();
-                String stockPrice = stock.getElementsByTagName("stockPrice").item(0).getTextContent();
-                String net = stock.getElementsByTagName("net").item(0).getTextContent();
-                String total = stock.getElementsByTagName("total").item(0).getTextContent();
-                String totalGained = stock.getElementsByTagName("totalGained").item(0).getTextContent();
-                String sector = stock.getElementsByTagName("sector").item(0).getTextContent();
+                Element stocks = (Element) stockList.item(i);
+                String name = stocks.getElementsByTagName("name").item(0).getTextContent();
+                String ticker = stocks.getElementsByTagName("ticker").item(0).getTextContent();
+                int amountOfShares = Integer.parseInt(stocks.getElementsByTagName("amountOfShares").item(0).getTextContent());
+                Double stockPrice = Double.parseDouble(stocks.getElementsByTagName("stockPrice").item(0).getTextContent());
+                Double net = Double.parseDouble(stocks.getElementsByTagName("net").item(0).getTextContent());
+                Double total = Double.parseDouble(stocks.getElementsByTagName("total").item(0).getTextContent());
+                Double totalGained = Double.parseDouble(stocks.getElementsByTagName("totalGained").item(0).getTextContent());
+                String sector = stocks.getElementsByTagName("sector").item(0).getTextContent();
+
                 System.out.println("Name: " + name);
                 System.out.println("Ticker: " + ticker);
                 System.out.println("Amount of Shares: " + amountOfShares);
@@ -131,7 +137,11 @@ public class Account {
                 System.out.println("Total Gained: " + totalGained);
                 System.out.println("Sector: " + sector);
                 System.out.println("\n");
+
+                stock = new Stock(name,ticker,amountOfShares,stockPrice,net,total,totalGained,sector);
+                stockLists.add(stock);
             }
+            return stockLists;
         } catch (Exception e) {
             e.printStackTrace();
         }

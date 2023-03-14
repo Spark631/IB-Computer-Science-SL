@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-
+import java.util.LinkedList;
 public class StockDriver {
 
     public static void main(String args[]) throws Exception {
@@ -59,11 +59,24 @@ public class StockDriver {
 
         // Print out the wallet balance in green, with a dollar sign and commas for
         // thousands
-        String walletString = String.format("$%,d", wallet);
-        System.out.println(bold + "Wallet: " + green + walletString + reset);
+        // String walletString = String.format("$%,d", wallet);
+        // System.out.println("this is walletstring : " + wallet + "");
+        System.out.println(bold + "Wallet: " + green + wallet + reset);
 
         // Print out the bottom border
         System.out.println(yellow + border + reset);
+
+        LinkedList<Stock> stockList = account.getStock();
+        for (Stock stock : stockList) {
+            System.out.println(stock.getName());
+        }
+        boolean loop = true;
+
+        while(loop == true) {
+
+        }
+
+
     }
 
     public void optionTwo() {
@@ -78,7 +91,7 @@ public class StockDriver {
     public void optionThree() {
         System.out.println("Option 3");
         Account account = new Account();
-        account.getStock();
+
     }
 
     public void optionFour() {
