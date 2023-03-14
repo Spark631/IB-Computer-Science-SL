@@ -103,6 +103,41 @@ public class Account {
         return 0;
     }
 
+    public Stock getStock() {
+        try {
+            File inputFile = new File("account.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            NodeList stockList = doc.getElementsByTagName("Stock");
+
+            for (int i = 0; i < stockList.getLength(); i++) {
+                Element stock = (Element) stockList.item(i);
+                String name = stock.getElementsByTagName("name").item(0).getTextContent();
+                String ticker = stock.getElementsByTagName("ticker").item(0).getTextContent();
+                String amountOfShares = stock.getElementsByTagName("amountOfShares").item(0).getTextContent();
+                String stockPrice = stock.getElementsByTagName("stockPrice").item(0).getTextContent();
+                String net = stock.getElementsByTagName("net").item(0).getTextContent();
+                String total = stock.getElementsByTagName("total").item(0).getTextContent();
+                String totalGained = stock.getElementsByTagName("totalGained").item(0).getTextContent();
+                String sector = stock.getElementsByTagName("sector").item(0).getTextContent();
+                System.out.println("Name: " + name);
+                System.out.println("Ticker: " + ticker);
+                System.out.println("Amount of Shares: " + amountOfShares);
+                System.out.println("Stock Price: " + stockPrice);
+                System.out.println("Net: " + net);
+                System.out.println("Total: " + total);
+                System.out.println("Total Gained: " + totalGained);
+                System.out.println("Sector: " + sector);
+                System.out.println("\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public String checkUser() {
         try {
             File inputFile = new File("account.xml");
