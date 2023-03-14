@@ -128,15 +128,15 @@ public class Account {
                 Double totalGained = Double.parseDouble(stocks.getElementsByTagName("totalGained").item(0).getTextContent());
                 String sector = stocks.getElementsByTagName("sector").item(0).getTextContent();
 
-                System.out.println("Name: " + name);
-                System.out.println("Ticker: " + ticker);
-                System.out.println("Amount of Shares: " + amountOfShares);
-                System.out.println("Stock Price: " + stockPrice);
-                System.out.println("Net: " + net);
-                System.out.println("Total: " + total);
-                System.out.println("Total Gained: " + totalGained);
-                System.out.println("Sector: " + sector);
-                System.out.println("\n");
+                // System.out.println("Name: " + name);
+                // System.out.println("Ticker: " + ticker);
+                // System.out.println("Amount of Shares: " + amountOfShares);
+                // System.out.println("Stock Price: " + stockPrice);
+                // System.out.println("Net: " + net);
+                // System.out.println("Total: " + total);
+                // System.out.println("Total Gained: " + totalGained);
+                // System.out.println("Sector: " + sector);
+                // System.out.println("\n");
 
                 stock = new Stock(name,ticker,amountOfShares,stockPrice,net,total,totalGained,sector);
                 stockLists.add(stock);

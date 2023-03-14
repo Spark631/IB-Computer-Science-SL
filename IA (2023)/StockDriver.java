@@ -68,30 +68,47 @@ public class StockDriver {
             System.out.println(yellow + border + reset);
     
             LinkedList<Stock> stockList = account.getStock();
-            for (Stock stock : stockList) {
-                System.out.println(stock.getName());
-            }
             boolean loop = true;
-    
+            
             int tracker = 0;
-    
+            
             Scanner input = new Scanner(System.in);
             
             int linkedListLength = stockList.size();
-
-
+            
+            int count = 1;
             while(loop == true) {
-                System.out.println("Stock<pg 1-" + linkedListLength + ">");
+                System.out.println("");
+                System.out.println(bold + "Your Stocks: " + reset);
+                System.out.println(yellow + border + reset);
+
+                for (Stock stock : stockList) {
+                    System.out.println(count + ": " + stock.getName() + "| " + "Number of Shares " + stock.getAmountOfShares());
+                    count++;
+                }
+    
+                System.out.println(yellow + border + reset);
+
+
+                System.out.println("Stock<pg" + (tracker + 1) + "-" + linkedListLength + ">");
                 System.out.println("Enter a number to select a stock: ");
                 tracker = (input.nextInt() - 1);
-                System.out.println(stockList.get(tracker).getName());
+                System.out.println("Name: " + stockList.get(tracker).getName());
+                System.out.println("Ticker: " + stockList.get(tracker).getTicker());
+                System.out.println("Shares: " + stockList.get(tracker).getAmountOfShares());
+                System.out.println("Price: " + stockList.get(tracker).getPrice());
+                System.out.println("Net: " + stockList.get(tracker).getNet());
+                System.out.println("Total: " + stockList.get(tracker).getTotal());
+                System.out.println("Total Spent: " + stockList.get(tracker).getTotalMoneySpent());
+                System.out.println("Total Gained: " + stockList.get(tracker).getTotalMoneyGained());
+                System.out.println("Sector: " + stockList.get(tracker).getSector());
+
             }
           
         } catch (Exception e) {
             System.out.println("You have no stocks!");
         }
         
-
     }
 
     public void optionTwo() {
@@ -106,6 +123,7 @@ public class StockDriver {
     public void optionThree() {
         System.out.println("Option 3");
         Account account = new Account();
+
 
     }
 
