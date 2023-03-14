@@ -65,7 +65,7 @@ public class DrawGraph extends JPanel {
 
       // Draw x-axis labels
       int x = 50;
-      int stepSize = 10; // display every second date
+      int stepSize = 10; // display every 10th date
       for (int i = 0; i < data.size(); i += stepSize) {
          Entry<String, Double> entry = (Entry<String, Double>) data.entrySet().toArray()[i];
          g2d.drawString(entry.getKey(), x - 15, HEIGHT - 30);
