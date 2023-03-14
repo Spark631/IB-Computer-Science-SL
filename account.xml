@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Account>
-                    
-    <user>
-        <name>Donny</name>
-        <wallet>398.12</wallet>
-        <accountActivatedDate>2023-03-13</accountActivatedDate>
-    </user>
                 
+    
+    
+    <user>
+                                
+        
+        
+        <name>Derek</name>
+                                
+        
+        
+        <wallet>416.34</wallet>
+                                
+        
+        
+        <accountActivatedDate>2023-03-14</accountActivatedDate>
+                            
+    
+    
+    </user>
+            
+    
+    
     <Stock>
                         
         
@@ -19,13 +35,13 @@
         <amountOfShares>1</amountOfShares>
                         
         
-        <stockPrice>174.48</stockPrice>
+        <stockPrice>181.86</stockPrice>
                         
         
         <net>0.0</net>
                         
         
-        <total>174.48</total>
+        <total>181.86</total>
                         
         
         <totalGained>0.0</totalGained>
@@ -39,32 +55,32 @@
     
     <Stock>
                 
-        <name>Amazon.com, Inc. (AMZN)</name>
+        <name>Apple Inc. (AAPL)</name>
                 
-        <ticker>AMZN</ticker>
+        <ticker>AAPL</ticker>
                 
-        <amountOfShares>1</amountOfShares>
+        <amountOfShares>2</amountOfShares>
                 
-        <stockPrice>92.43</stockPrice>
+        <stockPrice>151.07</stockPrice>
                 
         <net>0.0</net>
                 
-        <total>92.43</total>
+        <total>302.14</total>
                 
         <totalGained>0.0</totalGained>
                 
-        <sector>Consumer Cyclical</sector>
+        <sector>Technology</sector>
             
     </Stock>
     
     <Stock>
-        <name>Apple Inc. (AAPL)</name>
-        <ticker>AAPL</ticker>
-        <amountOfShares>4</amountOfShares>
-        <stockPrice>150.47</stockPrice>
+        <name>Amazon.com, Inc. (AMZN)</name>
+        <ticker>AMZN</ticker>
+        <amountOfShares>3</amountOfShares>
+        <stockPrice>93.84</stockPrice>
         <net>0.0</net>
-        <total>601.88</total>
+        <total>281.52</total>
         <totalGained>0.0</totalGained>
-        <sector>Technology</sector>
+        <sector>Consumer Cyclical</sector>
     </Stock>
 </Account>

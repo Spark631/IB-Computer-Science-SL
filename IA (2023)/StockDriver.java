@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-
+import java.util.LinkedList;
 public class StockDriver {
 
     public static void main(String args[]) throws Exception {
@@ -38,32 +38,77 @@ public class StockDriver {
     }
 
     public void optionOne() {
-        Account account = new Account();
-        String name = account.getUser();
-        double wallet = account.getWallet();
+        try {
+            Account account = new Account();
+            String name = account.getUser();
+            double wallet = account.getWallet();
+    
+            // Define some ANSI escape codes for colors and formatting
+            String reset = "\u001B[0m";
+            String bold = "\u001B[1m";
+            String yellow = "\u001B[33m";
+            String green = "\u001B[32m";
+    
+            // Define the ASCII art for the border
+            String border = "==============================";
+    
+            // Print out the top border
+            System.out.println(yellow + border + reset);
+    
+            // Print out the user's name in yellow, with a bold header
+            System.out.println(bold + "User: " + yellow + name + reset);
+    
+            // Print out the wallet balance in green, with a dollar sign and commas for
+            // thousands
+            // String walletString = String.format("$%,d", wallet);
+            // System.out.println("this is walletstring : " + wallet + "");
+            System.out.println(bold + "Wallet: " + green + wallet + reset);
+    
+            // Print out the bottom border
+            System.out.println(yellow + border + reset);
+    
+            LinkedList<Stock> stockList = account.getStock();
+            boolean loop = true;
+            
+            int tracker = 0;
+            
+            Scanner input = new Scanner(System.in);
+            
+            int linkedListLength = stockList.size();
+            
+            int count = 1;
+            while(loop == true) {
+                System.out.println("");
+                System.out.println(bold + "Your Stocks: " + reset);
+                System.out.println(yellow + border + reset);
 
-        // Define some ANSI escape codes for colors and formatting
-        String reset = "\u001B[0m";
-        String bold = "\u001B[1m";
-        String yellow = "\u001B[33m";
-        String green = "\u001B[32m";
+                for (Stock stock : stockList) {
+                    System.out.println(count + ": " + stock.getName() + "| " + "Number of Shares " + stock.getAmountOfShares());
+                    count++;
+                }
+    
+                System.out.println(yellow + border + reset);
 
-        // Define the ASCII art for the border
-        String border = "==============================";
 
-        // Print out the top border
-        System.out.println(yellow + border + reset);
+                System.out.println("Stock<pg" + (tracker + 1) + "-" + linkedListLength + ">");
+                System.out.println("Enter a number to select a stock: ");
+                tracker = (input.nextInt() - 1);
+                System.out.println("Name: " + stockList.get(tracker).getName());
+                System.out.println("Ticker: " + stockList.get(tracker).getTicker());
+                System.out.println("Shares: " + stockList.get(tracker).getAmountOfShares());
+                System.out.println("Price: " + stockList.get(tracker).getPrice());
+                System.out.println("Net: " + stockList.get(tracker).getNet());
+                System.out.println("Total: " + stockList.get(tracker).getTotal());
+                System.out.println("Total Spent: " + stockList.get(tracker).getTotalMoneySpent());
+                System.out.println("Total Gained: " + stockList.get(tracker).getTotalMoneyGained());
+                System.out.println("Sector: " + stockList.get(tracker).getSector());
 
-        // Print out the user's name in yellow, with a bold header
-        System.out.println(bold + "User: " + yellow + name + reset);
-
-        // Print out the wallet balance in green, with a dollar sign and commas for
-        // thousands
-        String walletString = String.format("$%,d", wallet);
-        System.out.println(bold + "Wallet: " + green + walletString + reset);
-
-        // Print out the bottom border
-        System.out.println(yellow + border + reset);
+            }
+          
+        } catch (Exception e) {
+            System.out.println("You have no stocks!");
+        }
+        
     }
 
     public void optionTwo() {
@@ -78,7 +123,8 @@ public class StockDriver {
     public void optionThree() {
         System.out.println("Option 3");
         Account account = new Account();
-        account.getStock();
+
+
     }
 
     public void optionFour() {
