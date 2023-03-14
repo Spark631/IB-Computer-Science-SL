@@ -49,7 +49,7 @@ class menu {
                System.out.println("------------------------");
                System.out.println("| Enter the stock name |");
                System.out.println("------------------------");
-               String stockName = input.next();
+               String stockName = input.next().toUpperCase();
 
                driver.optionEight(stockName);
                break;

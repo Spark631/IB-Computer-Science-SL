@@ -4,6 +4,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Scraper {
 
@@ -20,7 +23,7 @@ public class Scraper {
 
             scrapedTitle = title.text();
             return scrapedTitle;
-            
+
         } catch (Exception e) {
             System.out.println("Please Try Again" + e);
         }
@@ -51,19 +54,19 @@ public class Scraper {
 
     public String findSector(String stockName) {
         try {
-            Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "/profile?p=" + stockName).get();
-
-            // Element sector = doc.select("span[class=Mstart(15px) Fw(600) Fz(12px) C($primaryColor)]").first();
+            Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "/profile?p=" + stockName)
+                    .get();
             Element sector = doc.select("span[class=Fw(600)]").first();
             return sector.text();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Error " + e);
         }
         return null;
     }
 
     public Map<String, Double> createHashMap(String stockName) {
         LinkedHashMap<String, Double> data = new LinkedHashMap<String, Double>();
+        LinkedHashMap<String, Double> reversedData = new LinkedHashMap<>();
 
         try {
             Document doc = Jsoup.connect("https://finance.yahoo.com/quote/" + stockName + "/history?p=" + stockName)
@@ -78,14 +81,20 @@ public class Scraper {
                 data.put(date, closePriceDouble);
             }
 
-            DrawGraph draw = new DrawGraph(data);
-            draw.graph(data);
+            List<String> keys = new ArrayList<>(data.keySet());
+            Collections.reverse(keys);
+            for (String key : keys) {
+                reversedData.put(key, data.get(key));
+            }
+
+            DrawGraph draw = new DrawGraph(reversedData);
+            draw.graph(reversedData);
 
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
 
-        return data;
+        return reversedData;
 
     }
 

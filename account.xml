@@ -1,7 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Account>
+            
+    
     <user>
+                        
+        
         <name>Donny</name>
-        <wallet>154.16</wallet>
+                        
+        
+        <wallet>127.6</wallet>
+                        
+        
         <accountActivatedDate>2023-03-09</accountActivatedDate>
+                    
+    
     </user>
+        
+    
+    <Stock amountOfShares="3" name="Tesla, Inc. (TSLA)" net="0.0" sector="Consumer Cyclical" stockPrice="174.48" ticker="TSLA" total="523.4399999999999" totalGained="0.0"/>
+    
+    <Stock amountOfShares="2" name="Tesla, Inc. (TSLA)" net="0.0" sector="Consumer Cyclical" stockPrice="174.48" ticker="TSLA" total="348.96" totalGained="0.0"/>
 </Account>

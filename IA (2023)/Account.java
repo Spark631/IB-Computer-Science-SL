@@ -128,7 +128,7 @@ public class Account {
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
             double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
-            balance =  Math.round((balance - money) * 100.00)/ 100.00;
+            balance = Math.round((balance - money) * 100.00) / 100.00;
             System.out.println("BALANCEEEEEE: " + balance);
             user.getElementsByTagName("wallet").item(0).setTextContent(Double.toString(balance));
 
@@ -152,34 +152,28 @@ public class Account {
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
 
-            NodeList userList = doc.getElementsByTagName("user");
-            Element user = (Element) userList.item(0);
+            Element account = (Element) doc.getElementsByTagName("Account").item(0);
 
-            Element stock = doc.createElement("stock");
-            user.appendChild(stock);
+            // Create a new Stock element
+            Element stock = doc.createElement("Stock");
+            stock.setAttribute("name", stockInfo.getName());
+            stock.setAttribute("ticker", stockInfo.getTicker());
+            stock.setAttribute("amountOfShares", Integer.toString(stockInfo.getAmountOfShares()));
+            stock.setAttribute("stockPrice", Double.toString(stockInfo.getPrice()));
+            stock.setAttribute("net", Double.toString(stockInfo.getNet()));
+            stock.setAttribute("total", Double.toString(stockInfo.getTotal()));
+            stock.setAttribute("totalGained", Double.toString(stockInfo.getTotalMoneyGained()));
+            stock.setAttribute("sector", stockInfo.getSector());
 
-            Element name = doc.createElement("name");
-            name.appendChild(doc.createTextNode(stockInfo.getName()));
-            stock.appendChild(name);
-
-            Element ticker = doc.createElement("ticker");
-            ticker.appendChild(doc.createTextNode(stockInfo.getTicker()));
-            ticker.appendChild(ticker);
-
-            Element amountOfShares = doc.createElement("amountOfShares");
-            amountOfShares.appendChild(doc.createTextNode(Integer.toString(stockInfo.getAmountOfShares())));
-            stock.appendChild(amountOfShares);
-
-            // Element stockPrice = doc.createElement("stockPrice");
-            // stockPrice.appendChild(doc.createTextNode(Double.toString(stockInfo.getStockPrice())));
-            // stock.appendChild(stockPrice);
-
-            // Element stockQuantity = doc.createElement("stockQuantity");
-            // stockQuantity.appendChild(doc.createTextNode(Integer.toString(stockInfo.getStockQuantity())));
-            // stock.appendChild(stockQuantity);
+            // Add child elements to the Stock element
+            account.appendChild(stock);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File("account.xml"));
             transformer.transform(source, result);

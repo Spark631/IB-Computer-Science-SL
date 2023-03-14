@@ -5,20 +5,20 @@ class Stock {
     private double price;
     private double total;
     private double net;
-    private double totalOfMoneySpent;
-    private double totalOfMoneyGained;
+    private double totalMoneySpent;
+    private double totalMoneyGained;
     private String sector;
 
-    public Stock(String name, String ticker, int amountOfShares, double price, double net, double totalOfMoneySpent,
-            double totalOfMoneyGained, String sector) {
+    public Stock(String name, String ticker, int amountOfShares, double price, double net, double totalMoneySpent,
+            double totalMoneyGained, String sector) {
         this.name = name;
         this.ticker = ticker;
         this.amountOfShares = amountOfShares;
         this.price = price;
         this.total = amountOfShares * price;
         this.net = net;
-        this.totalOfMoneySpent = totalOfMoneySpent;
-        this.totalOfMoneyGained = totalOfMoneyGained;
+        this.totalMoneySpent = totalMoneySpent;
+        this.totalMoneyGained = totalMoneyGained;
         this.sector = sector;
     }
 
@@ -47,12 +47,12 @@ class Stock {
         return net;
     }
 
-    public double getTotalOfMoneySpent() {
-        return totalOfMoneySpent;
+    public double getTotalMoneySpent() {
+        return totalMoneySpent;
     }
 
-    public double getTotalOfMoneyGained() {
-        return totalOfMoneyGained;
+    public double getTotalMoneyGained() {
+        return totalMoneyGained;
     }
 
     public String getSector() {
@@ -84,12 +84,12 @@ class Stock {
         this.net = net;
     }
 
-    public void setTotalOfMoneySpent(double totalOfMoneySpent) {
-        this.totalOfMoneySpent = totalOfMoneySpent;
+    public void setTotalMoneySpent(double totalMoneySpent) {
+        this.totalMoneySpent = totalMoneySpent;
     }
 
-    public void setTotalOfMoneyGained(double totalOfMoneyGained) {
-        this.totalOfMoneyGained = totalOfMoneyGained;
+    public void setTotalMoneyGained(double totalMoneyGained) {
+        this.totalMoneyGained = totalMoneyGained;
     }
 
     public void setSector(String sector) {

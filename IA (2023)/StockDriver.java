@@ -39,6 +39,8 @@ public class StockDriver {
 
     public void optionOne() {
         System.out.println("Option 1");
+        Scraper scrape = new Scraper();
+        System.out.println(scrape.findSector("AMZN"));
     }
 
     public void optionTwo() {
@@ -112,7 +114,7 @@ public class StockDriver {
             Scraper scrape = new Scraper();
             String stock = scrape.findStockName(stockName);
             double stockPrice = scrape.findStockPrice(stockName);
-
+            String sector = scrape.findSector(stockName);
             if (stock == null) {
                 System.out.println("Stock not found");
                 return;
@@ -120,7 +122,7 @@ public class StockDriver {
 
             System.out.println("Stock: " + stock);
             System.out.println("Price: " + stockPrice);
-            
+
             System.out.println("1. To buy shares");
             System.out.println("2. To view bar chart");
             System.out.println("3. To return to menu");
@@ -136,17 +138,20 @@ public class StockDriver {
                     Account account = new Account();
                     double balance = account.checkBalance();
                     double total = (shares * stockPrice);
+
                     if (total <= balance) {
                         account.updateBalance(total);
                     } else {
                         System.out.println("Insufficient funds");
                         break;
                     }
-
                     System.out.println("You have bought " + shares + " shares of " + stockName);
+                    Stock stockObj = new Stock(stock, stockName, shares, stockPrice, 0, total, 0, sector);
+                    account.addStock(stockObj);
+
                     break;
                 case 2:
-                    System.out.println(scrape.createHashMap(stockName));
+                    scrape.createHashMap(stockName);
                     break;
                 case 3:
                     System.out.println("Return to Menu");
