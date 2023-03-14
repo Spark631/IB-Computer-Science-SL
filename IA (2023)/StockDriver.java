@@ -38,44 +38,59 @@ public class StockDriver {
     }
 
     public void optionOne() {
-        Account account = new Account();
-        String name = account.getUser();
-        double wallet = account.getWallet();
+        try {
+            Account account = new Account();
+            String name = account.getUser();
+            double wallet = account.getWallet();
+    
+            // Define some ANSI escape codes for colors and formatting
+            String reset = "\u001B[0m";
+            String bold = "\u001B[1m";
+            String yellow = "\u001B[33m";
+            String green = "\u001B[32m";
+    
+            // Define the ASCII art for the border
+            String border = "==============================";
+    
+            // Print out the top border
+            System.out.println(yellow + border + reset);
+    
+            // Print out the user's name in yellow, with a bold header
+            System.out.println(bold + "User: " + yellow + name + reset);
+    
+            // Print out the wallet balance in green, with a dollar sign and commas for
+            // thousands
+            // String walletString = String.format("$%,d", wallet);
+            // System.out.println("this is walletstring : " + wallet + "");
+            System.out.println(bold + "Wallet: " + green + wallet + reset);
+    
+            // Print out the bottom border
+            System.out.println(yellow + border + reset);
+    
+            LinkedList<Stock> stockList = account.getStock();
+            for (Stock stock : stockList) {
+                System.out.println(stock.getName());
+            }
+            boolean loop = true;
+    
+            int tracker = 0;
+    
+            Scanner input = new Scanner(System.in);
+            
+            int linkedListLength = stockList.size();
 
-        // Define some ANSI escape codes for colors and formatting
-        String reset = "\u001B[0m";
-        String bold = "\u001B[1m";
-        String yellow = "\u001B[33m";
-        String green = "\u001B[32m";
 
-        // Define the ASCII art for the border
-        String border = "==============================";
-
-        // Print out the top border
-        System.out.println(yellow + border + reset);
-
-        // Print out the user's name in yellow, with a bold header
-        System.out.println(bold + "User: " + yellow + name + reset);
-
-        // Print out the wallet balance in green, with a dollar sign and commas for
-        // thousands
-        // String walletString = String.format("$%,d", wallet);
-        // System.out.println("this is walletstring : " + wallet + "");
-        System.out.println(bold + "Wallet: " + green + wallet + reset);
-
-        // Print out the bottom border
-        System.out.println(yellow + border + reset);
-
-        LinkedList<Stock> stockList = account.getStock();
-        for (Stock stock : stockList) {
-            System.out.println(stock.getName());
+            while(loop == true) {
+                System.out.println("Stock<pg 1-" + linkedListLength + ">");
+                System.out.println("Enter a number to select a stock: ");
+                tracker = (input.nextInt() - 1);
+                System.out.println(stockList.get(tracker).getName());
+            }
+          
+        } catch (Exception e) {
+            System.out.println("You have no stocks!");
         }
-        boolean loop = true;
-
-        while(loop == true) {
-
-        }
-
+        
 
     }
 
