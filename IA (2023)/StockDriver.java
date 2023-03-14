@@ -16,7 +16,7 @@ public class StockDriver {
 
     public void options() {
         Account account = new Account();
-        String name = account.readUser();
+        String name = account.checkUser();
         System.out.println("+-------------------------------------+");
         System.out.printf("| Date: %-30s|\n", java.time.LocalDate.now());
         System.out.println("+-------------------------------------+");
@@ -38,9 +38,32 @@ public class StockDriver {
     }
 
     public void optionOne() {
-        System.out.println("Option 1");
-        Scraper scrape = new Scraper();
-        System.out.println(scrape.findSector("AMZN"));
+        Account account = new Account();
+        String name = account.getUser();
+        double wallet = account.getWallet();
+
+        // Define some ANSI escape codes for colors and formatting
+        String reset = "\u001B[0m";
+        String bold = "\u001B[1m";
+        String yellow = "\u001B[33m";
+        String green = "\u001B[32m";
+
+        // Define the ASCII art for the border
+        String border = "==============================";
+
+        // Print out the top border
+        System.out.println(yellow + border + reset);
+
+        // Print out the user's name in yellow, with a bold header
+        System.out.println(bold + "User: " + yellow + name + reset);
+
+        // Print out the wallet balance in green, with a dollar sign and commas for
+        // thousands
+        String walletString = String.format("$%,d", wallet);
+        System.out.println(bold + "Wallet: " + green + walletString + reset);
+
+        // Print out the bottom border
+        System.out.println(yellow + border + reset);
     }
 
     public void optionTwo() {
@@ -54,6 +77,8 @@ public class StockDriver {
 
     public void optionThree() {
         System.out.println("Option 3");
+        Account account = new Account();
+        account.getStock();
     }
 
     public void optionFour() {

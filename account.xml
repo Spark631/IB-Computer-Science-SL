@@ -1,23 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Account>
-            
-    
+                    
     <user>
-                        
-        
         <name>Donny</name>
+        <wallet>398.12</wallet>
+        <accountActivatedDate>2023-03-13</accountActivatedDate>
+    </user>
+                
+    <Stock>
                         
         
-        <wallet>127.6</wallet>
+        <name>Tesla, Inc. (TSLA)</name>
                         
         
-        <accountActivatedDate>2023-03-09</accountActivatedDate>
+        <ticker>TSLA</ticker>
+                        
+        
+        <amountOfShares>1</amountOfShares>
+                        
+        
+        <stockPrice>174.48</stockPrice>
+                        
+        
+        <net>0.0</net>
+                        
+        
+        <total>174.48</total>
+                        
+        
+        <totalGained>0.0</totalGained>
+                        
+        
+        <sector>Consumer Cyclical</sector>
                     
     
-    </user>
+    </Stock>
         
     
-    <Stock amountOfShares="3" name="Tesla, Inc. (TSLA)" net="0.0" sector="Consumer Cyclical" stockPrice="174.48" ticker="TSLA" total="523.4399999999999" totalGained="0.0"/>
+    <Stock>
+                
+        <name>Amazon.com, Inc. (AMZN)</name>
+                
+        <ticker>AMZN</ticker>
+                
+        <amountOfShares>1</amountOfShares>
+                
+        <stockPrice>92.43</stockPrice>
+                
+        <net>0.0</net>
+                
+        <total>92.43</total>
+                
+        <totalGained>0.0</totalGained>
+                
+        <sector>Consumer Cyclical</sector>
+            
+    </Stock>
     
-    <Stock amountOfShares="2" name="Tesla, Inc. (TSLA)" net="0.0" sector="Consumer Cyclical" stockPrice="174.48" ticker="TSLA" total="348.96" totalGained="0.0"/>
+    <Stock>
+        <name>Apple Inc. (AAPL)</name>
+        <ticker>AAPL</ticker>
+        <amountOfShares>4</amountOfShares>
+        <stockPrice>150.47</stockPrice>
+        <net>0.0</net>
+        <total>601.88</total>
+        <totalGained>0.0</totalGained>
+        <sector>Technology</sector>
+    </Stock>
 </Account>

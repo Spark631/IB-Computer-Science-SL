@@ -4,7 +4,7 @@ import java.io.*;
 class menu {
    public void showMenu() throws IOException {
       Account account = new Account();
-      account.readUser();
+      account.checkUser();
 
       Scanner input = new Scanner(System.in);
       int choice = 0;
