@@ -46,12 +46,7 @@ class menu {
                driver.optionSeven();
                break;
             case 8:
-               System.out.println("------------------------");
-               System.out.println("| Enter the stock name |");
-               System.out.println("------------------------");
-               String stockName = input.next().toUpperCase();
-
-               driver.optionEight(stockName);
+               driver.optionEight();
                break;
 
             default:
