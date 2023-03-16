@@ -204,7 +204,6 @@ public class Account {
 
     public void updateBalance(double money) {
         try {
-            System.out.println("THIS IS THE LIKE OMG LIKE WORKING LIKE" + money);
             File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -216,11 +215,7 @@ public class Account {
             double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
             balance = Math.round((balance + money) * 100.00) / 100.00;
             System.out.println("Your new balance should be: " + balance);
-            System.out.println("this is your balance: " + user.getElementsByTagName("wallet").item(0).getTextContent()
-                    + "This is your money: " + money);
             user.getElementsByTagName("wallet").item(0).setTextContent(Double.toString(balance));
-            System.out.println("GHUDFGHJKDFGHJDFJKGJKFHDGJKHDFJKGDFG"
-                    + user.getElementsByTagName("wallet").item(0).getTextContent());
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
