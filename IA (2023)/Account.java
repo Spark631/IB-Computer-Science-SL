@@ -21,6 +21,8 @@ import java.util.Scanner;
 import java.util.LinkedList;
 
 public class Account {
+    private static final String ACCOUNT_FILE = "account.xml";
+
     public void createAccount() {
         try {
             Scanner infoInput = new Scanner(System.in);
@@ -63,7 +65,7 @@ public class Account {
 
             DOMSource source = new DOMSource(doc);
 
-            StreamResult result = new StreamResult(new File("account.xml"));
+            StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
             transformer.transform(source, result);
 
             // Output to console for testing
@@ -77,7 +79,7 @@ public class Account {
 
     public String getUser() {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -96,7 +98,7 @@ public class Account {
 
     public double getWallet() {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -115,7 +117,7 @@ public class Account {
 
     public LinkedList<Stock> getStock() {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -150,7 +152,7 @@ public class Account {
 
     public String checkUser() {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -183,7 +185,7 @@ public class Account {
 
     public double checkBalance() {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -203,7 +205,7 @@ public class Account {
     public void updateBalance(double money) {
         try {
             System.out.println("THIS IS THE LIKE OMG LIKE WORKING LIKE" + money);
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -222,7 +224,7 @@ public class Account {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("account.xml"));
+            StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
             transformer.transform(source, result);
             System.out.println(source);
 
@@ -234,7 +236,7 @@ public class Account {
 
     public void addStock(Stock stockInfo) {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -309,7 +311,7 @@ public class Account {
 
     public void sellStock(String stock, int shares) {
         try {
-            File inputFile = new File("account.xml");
+            File inputFile = new File(ACCOUNT_FILE);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

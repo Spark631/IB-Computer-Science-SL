@@ -1,34 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
-            
-    
+        
     <user xml:space="preserve">
         <name>Donny</name>
-        <wallet>307.6</wallet>
+        <wallet>500.0</wallet>
         <accountActivatedDate>2023-03-15</accountActivatedDate>
     </user>
-        
-    
-    <Stock>
-                
-        <name>Amazon.com, Inc. (AMZN)</name>
-                
-        <ticker>AMZN</ticker>
-                
-        <amountOfShares>2</amountOfShares>
-                
-        <stockPrice>96.2</stockPrice>
-                
-        <net>0.0</net>
-                
-        <total>384.8</total>
-                
-        <totalSpent>384.8</totalSpent>
-                
-        <totalGained>0.0</totalGained>
-                
-        <sector>Consumer Cyclical</sector>
-            
-    </Stock>
     
     <Stock>
         <name>Tesla, Inc. (TSLA)</name>
