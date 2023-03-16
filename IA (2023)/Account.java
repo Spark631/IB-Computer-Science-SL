@@ -221,7 +221,6 @@ public class Account {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
             transformer.transform(source, result);
-            System.out.println(source);
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -235,7 +234,6 @@ public class Account {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
-            // doc.getDocumentElement().normalize();
 
             Element user = (Element) doc.getElementsByTagName("user").item(0);
             user.setAttribute("xml:space", "preserve");
@@ -243,7 +241,35 @@ public class Account {
             // Get the existing <Account> element
             Element account = (Element) doc.getElementsByTagName("Account").item(0);
 
-            // Create a new <Stock> element
+            NodeList stockList = doc.getElementsByTagName("Stock");
+            
+            // check if the stock already exists
+            for (int i = 0; i < stockList.getLength(); i++) {
+                System.out.println("Checking if stock already exists");
+                Element stocks = (Element) stockList.item(i);
+                String tickers = stocks.getElementsByTagName("ticker").item(0).getTextContent();
+                Integer amountOfShares = Integer
+                        .parseInt(stocks.getElementsByTagName("amountOfShares").item(0).getTextContent());
+
+                if (tickers.equals(stockInfo.getTicker())) {
+                    stocks.getElementsByTagName("amountOfShares").item(0)
+                            .setTextContent(Integer.toString(stockInfo.getAmountOfShares() + amountOfShares ));
+                    stocks.getElementsByTagName("stockPrice").item(0)
+                            .setTextContent(Double.toString(stockInfo.getPrice()));
+
+                    stocks.getElementsByTagName("net").item(0).setTextContent(Double.toString(stockInfo.getNet()));
+                    stocks.getElementsByTagName("total").item(0).setTextContent(Double.toString(stockInfo.getTotal()));
+
+                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource source = new DOMSource(doc);
+                    StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
+                    transformer.transform(source, result);
+                    return;
+                }
+            }
+
+            // Create a new <Stock> element if the stock does not exist
             Element stock = doc.createElement("Stock");
 
             // Create child elements for the stock information
@@ -288,6 +314,7 @@ public class Account {
             account.appendChild(stock);
 
             // Set the indent and indent amount properties on the transformer
+            // preserveElement(doc);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -297,7 +324,6 @@ public class Account {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(inputFile);
             transformer.transform(source, result);
-            // preserveElement(doc);
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
