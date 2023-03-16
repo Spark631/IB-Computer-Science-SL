@@ -1,85 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Account>
-                
-    
-    
-    <user>
-                                
-        
-        
-        <name>Derek</name>
-                                
-        
-        
-        <wallet>416.34</wallet>
-                                
-        
-        
-        <accountActivatedDate>2023-03-14</accountActivatedDate>
-                            
-    
-    
-    </user>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
             
     
-    
-    <Stock>
-                        
-        
-        <name>Tesla, Inc. (TSLA)</name>
-                        
-        
-        <ticker>TSLA</ticker>
-                        
-        
-        <amountOfShares>1</amountOfShares>
-                        
-        
-        <stockPrice>181.86</stockPrice>
-                        
-        
-        <net>0.0</net>
-                        
-        
-        <total>181.86</total>
-                        
-        
-        <totalGained>0.0</totalGained>
-                        
-        
-        <sector>Consumer Cyclical</sector>
-                    
-    
-    </Stock>
+    <user xml:space="preserve">
+        <name>Donny</name>
+        <wallet>307.6</wallet>
+        <accountActivatedDate>2023-03-15</accountActivatedDate>
+    </user>
         
     
     <Stock>
                 
-        <name>Apple Inc. (AAPL)</name>
+        <name>Amazon.com, Inc. (AMZN)</name>
                 
-        <ticker>AAPL</ticker>
+        <ticker>AMZN</ticker>
                 
         <amountOfShares>2</amountOfShares>
                 
-        <stockPrice>151.07</stockPrice>
+        <stockPrice>96.2</stockPrice>
                 
         <net>0.0</net>
                 
-        <total>302.14</total>
+        <total>384.8</total>
+                
+        <totalSpent>384.8</totalSpent>
                 
         <totalGained>0.0</totalGained>
                 
-        <sector>Technology</sector>
+        <sector>Consumer Cyclical</sector>
             
     </Stock>
     
     <Stock>
-        <name>Amazon.com, Inc. (AMZN)</name>
-        <ticker>AMZN</ticker>
-        <amountOfShares>3</amountOfShares>
-        <stockPrice>93.84</stockPrice>
+        <name>Tesla, Inc. (TSLA)</name>
+        <ticker>TSLA</ticker>
+        <amountOfShares>0</amountOfShares>
+        <stockPrice>180.45</stockPrice>
         <net>0.0</net>
-        <total>281.52</total>
+        <total>180.45</total>
+        <totalSpent>180.45</totalSpent>
         <totalGained>0.0</totalGained>
         <sector>Consumer Cyclical</sector>
     </Stock>

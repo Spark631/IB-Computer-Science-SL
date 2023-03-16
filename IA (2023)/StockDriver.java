@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.LinkedList;
+
 public class StockDriver {
 
     public static void main(String args[]) throws Exception {
@@ -26,7 +27,7 @@ public class StockDriver {
         System.out.println("|                                     |");
         System.out.println("| 1. View your portfolio              |");
         System.out.println("| 2. Load an existing portfolio       |");
-        System.out.println("| 3. Save the current portfolio       |");
+        System.out.println("| 3. Sell shares                      |");
         System.out.println("| 4. Display the current portfolio    |");
         System.out.println("| 5. Add a stock to the portfolio     |");
         System.out.println("| 6. Remove a stock from the portfolio|");
@@ -42,53 +43,53 @@ public class StockDriver {
             Account account = new Account();
             String name = account.getUser();
             double wallet = account.getWallet();
-    
+
             // Define some ANSI escape codes for colors and formatting
             String reset = "\u001B[0m";
             String bold = "\u001B[1m";
             String yellow = "\u001B[33m";
             String green = "\u001B[32m";
-    
+
             // Define the ASCII art for the border
             String border = "==============================";
-    
+
             // Print out the top border
             System.out.println(yellow + border + reset);
-    
+
             // Print out the user's name in yellow, with a bold header
             System.out.println(bold + "User: " + yellow + name + reset);
-    
+
             // Print out the wallet balance in green, with a dollar sign and commas for
             // thousands
             // String walletString = String.format("$%,d", wallet);
             // System.out.println("this is walletstring : " + wallet + "");
             System.out.println(bold + "Wallet: " + green + wallet + reset);
-    
+
             // Print out the bottom border
             System.out.println(yellow + border + reset);
-    
+
             LinkedList<Stock> stockList = account.getStock();
             boolean loop = true;
-            
+
             int tracker = 0;
-            
+
             Scanner input = new Scanner(System.in);
-            
+
             int linkedListLength = stockList.size();
-            
+
             int count = 1;
-            while(loop == true) {
+            while (loop == true) {
                 System.out.println("");
                 System.out.println(bold + "Your Stocks: " + reset);
                 System.out.println(yellow + border + reset);
 
                 for (Stock stock : stockList) {
-                    System.out.println(count + ": " + stock.getName() + "| " + "Number of Shares " + stock.getAmountOfShares());
+                    System.out.println(
+                            count + ": " + stock.getName() + "| " + "Number of Shares " + stock.getAmountOfShares());
                     count++;
                 }
-    
-                System.out.println(yellow + border + reset);
 
+                System.out.println(yellow + border + reset);
 
                 System.out.println("Stock<pg" + (tracker + 1) + "-" + linkedListLength + ">");
                 System.out.println("Enter a number to select a stock: ");
@@ -104,11 +105,11 @@ public class StockDriver {
                 System.out.println("Sector: " + stockList.get(tracker).getSector());
 
             }
-          
+
         } catch (Exception e) {
             System.out.println("You have no stocks!");
         }
-        
+
     }
 
     public void optionTwo() {
@@ -124,6 +125,14 @@ public class StockDriver {
         System.out.println("Option 3");
         Account account = new Account();
 
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter the name of the stock you want to sell: ");
+        String name = input.nextLine();
+        System.out.println("Enter the amount of shares you want to sell: ");
+        int amount = input.nextInt();
+
+        account.sellStock(name, amount);
 
     }
 
@@ -211,7 +220,7 @@ public class StockDriver {
                     double total = (shares * stockPrice);
 
                     if (total <= balance) {
-                        account.updateBalance(total);
+                        account.updateBalance(-total);
                     } else {
                         System.out.println("Insufficient funds");
                         break;
