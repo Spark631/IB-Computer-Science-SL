@@ -39,7 +39,7 @@ public class StockDriver {
         System.out.println(bold + green + "3. Sell shares" + reset);
         System.out.println(bold + red + "4. Display the current portfolio" + reset);
         System.out.println(bold + white + "5. Add a stock to the portfolio" + reset);
-        System.out.println(bold + bgBlack + "6. Remove a stock from the portfolio" + reset);
+        System.out.println(bold + black + "6. Remove a stock from the portfolio" + reset);
         System.out.println(bold + yellow + "7. Sort the portfolio by price using" + reset);
         System.out.println(bold + cyan + "8. Search for a stock" + reset);
         System.out.println(bold + yellow + border + reset);
@@ -108,18 +108,38 @@ public class StockDriver {
 
                 System.out.println(yellow + border + reset);
 
-                System.out.println("Stock<pg" + (tracker + 1) + "-" + linkedListLength + ">");
-                System.out.println("Enter a number to select a stock: ");
-                tracker = (input.nextInt() - 1);
-                System.out.println("Name: " + stockList.get(tracker).getName());
-                System.out.println("Ticker: " + stockList.get(tracker).getTicker());
-                System.out.println("Shares: " + stockList.get(tracker).getAmountOfShares());
-                System.out.println("Price: " + stockList.get(tracker).getPrice());
-                System.out.println("Net: " + stockList.get(tracker).getNet());
-                System.out.println("Total: " + stockList.get(tracker).getTotal());
-                System.out.println("Total Spent: " + stockList.get(tracker).getTotalMoneySpent());
-                System.out.println("Total Gained: " + stockList.get(tracker).getTotalMoneyGained());
-                System.out.println("Sector: " + stockList.get(tracker).getSector());
+                System.out.println("Stock <" + (tracker + 1) + "-" + linkedListLength + ">");
+
+                System.out.println("1. Enter a number to select a stock: ");
+                System.out.println("0. Enter 0 to go back to the main menu: ");
+
+                tracker = (input.nextInt());
+                switch (tracker) {
+                    case 1:
+                        tracker = (tracker - 1);
+                        // tracker = (input.nextInt() - 1);
+                        System.out.println(bold + "STOCK INFORMATION" + reset);
+                        System.out.println(yellow + border + reset);
+                        System.out.println("Name: " + stockList.get(tracker).getName());
+                        System.out.println("Ticker: " + stockList.get(tracker).getTicker());
+                        System.out.println("Shares: " + stockList.get(tracker).getAmountOfShares());
+                        System.out.println("Price: " + stockList.get(tracker).getPrice());
+                        System.out.println("Net: " + stockList.get(tracker).getNet());
+                        System.out.println("Total: " + stockList.get(tracker).getTotal());
+                        System.out.println("Total Spent: " + stockList.get(tracker).getTotalMoneySpent());
+                        System.out.println("Total Gained: " + stockList.get(tracker).getTotalMoneyGained());
+                        System.out.println("Sector: " + stockList.get(tracker).getSector());
+                        System.out.println(yellow + border + reset);
+                        break;
+
+                        case 0:
+                        loop = false;
+                        break;
+
+                    default:
+                        System.out.println("Invalid input");
+                        break;
+                }
 
             }
 
