@@ -10,11 +10,14 @@ class menu {
       int choice = 0;
 
       StockDriver driver = new StockDriver();
-
       do {
          driver.options();
-
-         choice = input.nextInt();
+         try {
+            choice = input.nextInt();
+         } catch (Exception e) {
+            System.out.println("Invalid choice");
+            showMenu();
+         }
 
          switch (choice) {
             case 1:
