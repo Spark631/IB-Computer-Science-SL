@@ -357,6 +357,23 @@ public class Account {
                         total = price * shares;
 
                         System.out.println("You have gained " + price * shares + " dollars");
+
+                        Double totalGained = Double
+                                .parseDouble(stockElement.getElementsByTagName("totalGained").item(0).getTextContent());
+                        totalGained += total;
+                        stockElement.getElementsByTagName("totalGained").item(0)
+                                .setTextContent(Double.toString(totalGained));
+
+                        Double totalSpent = Double
+                                .parseDouble(stockElement.getElementsByTagName("totalSpent").item(0).getTextContent());
+
+                        Double netPrice = Double
+                                .parseDouble(stockElement.getElementsByTagName("net").item(0).getTextContent());
+                        
+                        netPrice = totalGained - totalSpent;
+
+                        stockElement.getElementsByTagName("net").item(0)
+                                .setTextContent(Double.toString(netPrice));
                         break;
                     } else {
                         System.out.println("You do not have enough shares to sell");

@@ -2,19 +2,19 @@
         
     <user xml:space="preserve">
         <name>Donny</name>
-        <wallet>99.44</wallet>
-        <accountActivatedDate>2023-03-16</accountActivatedDate>
+        <wallet>500.0</wallet>
+        <accountActivatedDate>2023-03-17</accountActivatedDate>
     </user>
     
     <Stock>
         <name>Amazon.com, Inc. (AMZN)</name>
         <ticker>AMZN</ticker>
-        <amountOfShares>4</amountOfShares>
-        <stockPrice>100.13</stockPrice>
-        <net>0.0</net>
-        <total>400.52</total>
-        <totalSpent>300.27</totalSpent>
-        <totalGained>0.0</totalGained>
+        <amountOfShares>0</amountOfShares>
+        <stockPrice>98.95</stockPrice>
+        <net>295.8</net>
+        <total>296.85</total>
+        <totalSpent>100.00</totalSpent>
+        <totalGained>395.8</totalGained>
         <sector>Consumer Cyclical</sector>
     </Stock>
 </Account>
