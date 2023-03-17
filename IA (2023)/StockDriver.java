@@ -168,9 +168,13 @@ public class StockDriver {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter the name of the stock you want to sell: ");
+        System.out.println(yellow + border + reset);
+        System.out.println(blue + "Enter the name of the stock you want to sell: " + reset);
+        System.out.println(yellow + border + reset);
         String name = input.nextLine();
-        System.out.println("Enter the amount of shares you want to sell: ");
+        System.out.println(yellow + border + reset);
+        System.out.println(magenta + "Enter the amount of shares you want to sell: " + reset);
+        System.out.println(yellow + border + reset);
         int amount = input.nextInt();
 
         account.sellStock(name, amount);
