@@ -111,6 +111,9 @@ public class StockDriver {
                         System.out.println("Sector: " + stockList.get(tracker).getSector());
                         System.out.println(yellow + border + reset);
                         break;
+
+                    case 2:
+
                     case 0:
                         loop = false;
                         break;

@@ -1,4 +1,5 @@
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -40,7 +41,6 @@ public class Account {
 
             // root element
             Element rootElement = doc.createElement("Account");
-            // rootElement.setAttribute("xml:space", "preserve");
             doc.appendChild(rootElement);
 
             // user element
@@ -64,20 +64,11 @@ public class Account {
             accountActivatedDate.appendChild(doc.createTextNode(java.time.LocalDate.now().toString()));
             user.appendChild(accountActivatedDate);
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-            DOMSource source = new DOMSource(doc);
-
-            StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
-            transformer.transform(source, result);
+            writeDocument(doc, "yes");
 
             // Output to console for testing
-            StreamResult consoleResult = new StreamResult(System.out);
-            transformer.transform(source, consoleResult);
+            // StreamResult consoleResult = new StreamResult(System.out);
+            // transformer.transform(source, consoleResult);
 
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -86,11 +77,7 @@ public class Account {
 
     public String getUser() {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
@@ -105,11 +92,7 @@ public class Account {
 
     public double getWallet() {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
@@ -124,11 +107,7 @@ public class Account {
 
     public LinkedList<Stock> getStock() {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
             NodeList stockList = doc.getElementsByTagName("Stock");
 
             LinkedList<Stock> stockLists = new LinkedList<Stock>();
@@ -159,11 +138,7 @@ public class Account {
 
     public String checkUser() {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
@@ -171,7 +146,6 @@ public class Account {
 
             return name;
         } catch (Exception e) {
-            // e.printStackTrace();
             System.out.println("\033[1m" + "  _________________________________________  " + "\033[0m");
             System.out.println("\033[1m" + " /                                         \\" + "\033[0m");
             System.out.println("\033[1m" + "|   \033[32mHello there Investor!" + "\033[0m" + "\033[1m"
@@ -192,16 +166,11 @@ public class Account {
 
     public double checkBalance() {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
             double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
-
             return balance;
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -211,11 +180,7 @@ public class Account {
 
     public void updateBalance(double money) {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             NodeList userList = doc.getElementsByTagName("user");
             Element user = (Element) userList.item(0);
@@ -223,24 +188,16 @@ public class Account {
             balance = Math.round((balance + money) * 100.00) / 100.00;
             System.out.println("Your new balance should be: " + balance);
             user.getElementsByTagName("wallet").item(0).setTextContent(Double.toString(balance));
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
-            transformer.transform(source, result);
+            writeDocument(doc, "no");
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-
     }
 
     public void addStock(Stock stockInfo) {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
+            Document doc = getDocument();
 
             Element user = (Element) doc.getElementsByTagName("user").item(0);
 
@@ -266,11 +223,7 @@ public class Account {
                     stocks.getElementsByTagName("net").item(0).setTextContent(Double.toString(stockInfo.getNet()));
                     stocks.getElementsByTagName("total").item(0).setTextContent(Double.toString(stockInfo.getTotal()));
                     removeWhiteSpace(doc);
-                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                    Transformer transformer = transformerFactory.newTransformer();
-                    DOMSource source = new DOMSource(doc);
-                    StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
-                    transformer.transform(source, result);
+                    writeDocument(doc, "yes");
                     return;
                 }
             }
@@ -322,15 +275,7 @@ public class Account {
             // Set the indent and indent amount properties on the transformer
             // preserveElement(doc);
             removeWhiteSpace(doc);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-            // Write the transformed document to the input file
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(inputFile);
-            transformer.transform(source, result);
+            writeDocument(doc, "yes");
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -339,11 +284,7 @@ public class Account {
 
     public void sellStock(String stock, int shares) {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             double total = 0;
 
@@ -387,13 +328,8 @@ public class Account {
                     }
                 }
             }
-            removeWhiteSpace(doc);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(inputFile);
-            transformer.transform(source, result);
 
+            writeDocument(doc, "no");
             updateBalance(total);
 
         } catch (Exception e) {
@@ -403,11 +339,7 @@ public class Account {
 
     public void addToWatchList(String ticker) {
         try {
-            File inputFile = new File(ACCOUNT_FILE);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            Document doc = getDocument();
 
             // parent node
             Element watchList = (Element) doc.getElementsByTagName("watchList").item(0);
@@ -416,19 +348,32 @@ public class Account {
             watchList.appendChild(tickerElement);
 
             removeWhiteSpace(doc);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
-            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(inputFile);
-            transformer.transform(source, result);
+            writeDocument(doc, "yes");
 
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Error: " + e);
         }
+    }
+
+    private static Document getDocument() throws Exception {
+        File inputFile = new File(ACCOUNT_FILE);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(inputFile);
+        doc.getDocumentElement().normalize();
+        return doc;
+    }
+
+    private static void writeDocument(Document doc, String option) throws Exception {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
+        transformer.setOutputProperty(OutputKeys.INDENT, option);
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(ACCOUNT_FILE));
+        transformer.transform(source, result);
     }
 
     public static void removeWhiteSpace(Document doc) {
@@ -448,39 +393,4 @@ public class Account {
             }
         }
     }
-
-    // public static void preserveElement(Document doc) {
-    // Nodelist stockNodes = doc.getElementsByTagName("Stock");
-    // for (int i = 0; i < stockNodes.getLength(); i++) {
-    // Element stock = (Element) stockNodes.item(i);
-    // stock.setAttribute("xml:space", "preserve");
-    // }
-    // TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    // Transformer transformer = transformerFactory.newTransformer();
-    // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-    // transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
-    // "4");
-    // DOMSource source = new DOMSource(doc);
-    // StreamResult result = new StreamResult(new File("account.xml"));
-    // transformer.transform(source, result);
-
-    // }
-
-    // private static void writeXml(Document doc,
-    // OutputStream output)
-    // throws TransformerException {
-
-    // TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    // Transformer transformer = transformerFactory.newTransformer();
-
-    // // pretty print
-    // transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
-
-    // DOMSource source = new DOMSource(doc);
-    // StreamResult result = new StreamResult(output);
-
-    // transformer.transform(source, result);
-
-    // }
-
 }

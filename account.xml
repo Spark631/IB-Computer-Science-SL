@@ -1,25 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Account>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
     <user>
         <name>Donny</name>
-        <wallet>500.0</wallet>
-        <accountActivatedDate>2023-03-18</accountActivatedDate>
+        <wallet>220.57</wallet>
+        <accountActivatedDate>2023-03-19</accountActivatedDate>
     </user>
     <watchList>
         <ticker>TSLA</ticker>
         <ticker>TSLA</ticker>
-    </watchList>
-    <Stock>
-        <name>Tesla, Inc. (TSLA)</name>
         <ticker>TSLA</ticker>
-        <amountOfShares>0</amountOfShares>
-        <stockPrice>180.13</stockPrice>
-        <net>180.13</net>
-        <total>180.13</total>
-        <totalSpent>180.13</totalSpent>
-        <totalGained>360.26</totalGained>
-        <sector>Consumer Cyclical</sector>
-    </Stock>
+        <ticker>TSLA</ticker>
+    </watchList>
     <Stock>
         <name>Amazon.com, Inc. (AMZN)</name>
         <ticker>AMZN</ticker>
@@ -30,5 +20,16 @@
         <totalSpent>98.95</totalSpent>
         <totalGained>98.95</totalGained>
         <sector>Consumer Cyclical</sector>
+    </Stock>
+    <Stock>
+        <name>Microsoft Corporation (MSFT)</name>
+        <ticker>MSFT</ticker>
+        <amountOfShares>1</amountOfShares>
+        <stockPrice>279.43</stockPrice>
+        <net>0.0</net>
+        <total>279.43</total>
+        <totalSpent>279.43</totalSpent>
+        <totalGained>0.0</totalGained>
+        <sector>Technology</sector>
     </Stock>
 </Account>
