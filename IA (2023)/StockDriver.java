@@ -35,32 +35,11 @@ public class StockDriver {
         System.out.println(bold + cyan + "Please select an option:" + reset);
         System.out.println(bold + yellow + border + reset);
         System.out.println(bold + blue + "1. View your portfolio" + reset);
-        System.out.println(bold + magenta + "2. Load an existing portfolio" + reset);
+        System.out.println(bold + magenta + "2. Search for a stock" + reset);
         System.out.println(bold + green + "3. Sell shares" + reset);
-        System.out.println(bold + red + "4. Display the current portfolio" + reset);
-        System.out.println(bold + white + "5. Add a stock to the portfolio" + reset);
-        System.out.println(bold + black + "6. Remove a stock from the portfolio" + reset);
-        System.out.println(bold + yellow + "7. Sort the portfolio by price using" + reset);
-        System.out.println(bold + cyan + "8. Search for a stock" + reset);
+        System.out.println(bold + cyan + "4. Watch List" + reset);
+        System.out.println(bold + red + "5. Quit" + reset);
         System.out.println(bold + yellow + border + reset);
-        // System.out.println("+-------------------------------------+");
-        // System.out.printf("| Date: %-30s|\n", java.time.LocalDate.now());
-        // System.out.println("+-------------------------------------+");
-        // System.out.printf("| Welcome, %-27s|\n", name);
-        // System.out.println("+-------------------------------------+");
-        // System.out.println("| Please select an option: |");
-        // System.out.println("| |");
-        // System.out.println("| 1. View your portfolio |");
-        // System.out.println("| 2. Load an existing portfolio |");
-        // System.out.println("| 3. Sell shares |");
-        // System.out.println("| 4. Display the current portfolio |");
-        // System.out.println("| 5. Add a stock to the portfolio |");
-        // System.out.println("| 6. Remove a stock from the portfolio|");
-        // System.out.println("| 7. Sort the portfolio by price using|");
-        // System.out.println("| quick sort |");
-        // System.out.println("| 8. Search for a stock |");
-        // System.out.println("| |");
-        // System.out.println("+-------------------------------------+");
     }
 
     public void optionOne() {
@@ -69,17 +48,13 @@ public class StockDriver {
             String name = account.getUser();
             double wallet = account.getWallet();
 
-            // Define the ASCII art for the border
-            String border = "==============================";
-
             // Print out the top border
             System.out.println(yellow + border + reset);
 
             // Print out the user's name in yellow, with a bold header
             System.out.println(bold + "User: " + yellow + name + reset);
 
-            // String walletString = String.format("$%,d", wallet);
-            // System.out.println("this is walletstring : " + wallet + "");
+            // Print out the user's wallet in yellow, with a bold header
             System.out.println(bold + "Wallet: " + green + wallet + reset);
 
             // Print out the bottom border
@@ -105,20 +80,24 @@ public class StockDriver {
                             count + ": " + stock.getName() + "| " + "Number of Shares " + stock.getAmountOfShares());
                     count++;
                 }
+                count = 1; // Reset the count to 1
 
                 System.out.println(yellow + border + reset);
 
-                System.out.println("Stock <" + (tracker + 1) + "-" + linkedListLength + ">");
+                System.out.println("Stock <" + (1) + "-" + linkedListLength + ">");
 
-                System.out.println("1. Enter a number to select a stock: ");
-                System.out.println("2. Sort the stock");
-                System.out.println("0. Enter 0 to go back to the main menu: ");
+                System.out.println(yellow + "1. Select a stock: " + reset);
+                System.out.println(blue + "2. Sort the stock" + reset);
+                System.out.println(red + "0. Enter 0 to go back to the main menu: " + reset);
 
                 tracker = (input.nextInt());
                 switch (tracker) {
                     case 1:
+                        System.out.println(yellow + border + reset);
+                        System.out.println(white + "Enter the stock number:" + reset);
+                        tracker = (input.nextInt());
                         tracker = (tracker - 1);
-                        // tracker = (input.nextInt() - 1);
+
                         System.out.println(bold + "STOCK INFORMATION" + reset);
                         System.out.println(yellow + border + reset);
                         System.out.println("Name: " + stockList.get(tracker).getName());
@@ -132,7 +111,6 @@ public class StockDriver {
                         System.out.println("Sector: " + stockList.get(tracker).getSector());
                         System.out.println(yellow + border + reset);
                         break;
-
                     case 0:
                         loop = false;
                         break;
@@ -141,107 +119,17 @@ public class StockDriver {
                         System.out.println("Invalid input");
                         break;
                 }
-
             }
-
         } catch (Exception e) {
             System.out.println("You have no stocks!");
         }
-
     }
 
     public void optionTwo() {
-        System.out.println("Option 2");
-        Account account = new Account();
-
-        Stock stock = new Stock("Apple", "AAPL", 10, 100.00, 1000000000, 100, 50, "Technology");
-
-        account.addStock(stock);
-    }
-
-    public void optionThree() {
-        System.out.println("Option 3");
-        Account account = new Account();
-
-        Scanner input = new Scanner(System.in);
-
-        System.out.println(yellow + border + reset);
-        System.out.println(blue + "Enter the name of the stock you want to sell: " + reset);
-        System.out.println(yellow + border + reset);
-        String name = input.nextLine();
-        System.out.println(yellow + border + reset);
-        System.out.println(magenta + "Enter the amount of shares you want to sell: " + reset);
-        System.out.println(yellow + border + reset);
-        int amount = input.nextInt();
-
-        account.sellStock(name, amount);
-
-    }
-
-    public void optionFour() {
-        System.out.println("Option 4");
-    }
-
-    public void optionFive() {
-        System.out.println("Option 5");
-        Account account = new Account();
-        account.addToWatchList("TSLA");
-    }
-
-    public void optionSix() {
-        System.out.println("Option 6");
-    }
-
-    public void optionSeven() {
-        System.out.println("Option 7");
         try {
-            File readFile = new File("Stock.txt");
-            Scanner input = new Scanner(readFile);
-
-            int count = 0;
-            Stock[] stockArray = new Stock[20];
-
-            while (input.hasNextLine()) {
-                String fileLine = input.nextLine();
-                String[] data = fileLine.split(",");
-
-                for (int i = 0; i < data.length; i++) {
-                    System.out.println(data[i]);
-                }
-
-                String name = data[0];
-                String ticker = data[1];
-                int quantity = Integer.parseInt(data[2]);
-                double price = Double.parseDouble(data[3]);
-                int marketCap = Integer.parseInt(data[4]);
-                int high = Integer.parseInt(data[5]);
-                int low = Integer.parseInt(data[6]);
-                String sector = data[7];
-
-                Stock stock = new Stock(name, ticker, quantity, price, marketCap, high, low, sector);
-                stockArray[count] = stock;
-                count++;
-                // stockArray[0] = stocks.Stock(data[0], data[1], Integer.parseInt(data[2]),
-                // Double.parseDouble(data[3]),
-                // Double.parseDouble(data[4]), Integer.parseInt(data[5]),
-                // Integer.parseInt(data[6]), Integer.parseInt(data[7]), data[8]);
-            }
-
-            input.close();
-        } catch (Exception e) {
-            System.out.println("Error" + e);
-        }
-    }
-
-    public void optionEight() {
-        try {
-
-            // Define the ASCII art for the border and prompt
-            String prompt = "     ENTER THE STOCK NAME     ";
-
             // Print out the border and prompt
             System.out.println(yellow + border + reset);
-            System.out.println(bold + prompt + reset);
+            System.out.println(bold + "     ENTER THE STOCK NAME     " + reset);
             System.out.println(yellow + border + reset);
 
             Scanner input = new Scanner(System.in);
@@ -256,11 +144,8 @@ public class StockDriver {
                 return;
             }
 
-            // Define the ASCII art for the header and border
-            String header = "STOCK INFO";
-
             // Print out the header and top border
-            System.out.println(yellow + header + reset);
+            System.out.println(yellow + "STOCK INFO" + reset);
             System.out.println(yellow + border + reset);
 
             // Print out the stock name and price
@@ -314,6 +199,83 @@ public class StockDriver {
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
+    }
+
+    public void optionThree() {
+        System.out.println("Option 3");
+        Account account = new Account();
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println(yellow + border + reset);
+        System.out.println(blue + "Enter the name of the stock you want to sell: " + reset);
+        System.out.println(yellow + border + reset);
+        String name = input.nextLine();
+        System.out.println(yellow + border + reset);
+        System.out.println(magenta + "Enter the amount of shares you want to sell: " + reset);
+        System.out.println(yellow + border + reset);
+        int amount = input.nextInt();
+
+        account.sellStock(name, amount);
+
+    }
+
+    public void optionFour() {
+        System.out.println("Option 5");
+        Account account = new Account();
+        account.addToWatchList("TSLA");
+    }
+
+    public void optionFive() {
+        System.exit(0);
+    }
+
+    public void optionSix() {
+        System.out.println("Option 6");
+    }
+
+    public void optionSeven() {
+        System.out.println("Option 7");
+        try {
+            File readFile = new File("Stock.txt");
+            Scanner input = new Scanner(readFile);
+
+            int count = 0;
+            Stock[] stockArray = new Stock[20];
+
+            while (input.hasNextLine()) {
+                String fileLine = input.nextLine();
+                String[] data = fileLine.split(",");
+
+                for (int i = 0; i < data.length; i++) {
+                    System.out.println(data[i]);
+                }
+
+                String name = data[0];
+                String ticker = data[1];
+                int quantity = Integer.parseInt(data[2]);
+                double price = Double.parseDouble(data[3]);
+                int marketCap = Integer.parseInt(data[4]);
+                int high = Integer.parseInt(data[5]);
+                int low = Integer.parseInt(data[6]);
+                String sector = data[7];
+
+                Stock stock = new Stock(name, ticker, quantity, price, marketCap, high, low, sector);
+                stockArray[count] = stock;
+                count++;
+                // stockArray[0] = stocks.Stock(data[0], data[1], Integer.parseInt(data[2]),
+                // Double.parseDouble(data[3]),
+                // Double.parseDouble(data[4]), Integer.parseInt(data[5]),
+                // Integer.parseInt(data[6]), Integer.parseInt(data[7]), data[8]);
+            }
+
+            input.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+    }
+
+    public void optionEight() {
 
     }
 
