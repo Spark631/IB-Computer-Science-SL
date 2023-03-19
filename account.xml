@@ -1,20 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
-        
-    <user xml:space="preserve">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Account>
+    <user>
         <name>Donny</name>
-        <wallet>500.0</wallet>
-        <accountActivatedDate>2023-03-17</accountActivatedDate>
+        <wallet>40.79</wallet>
+        <accountActivatedDate>2023-03-18</accountActivatedDate>
     </user>
+    <watchList/>
+    <Stock>
+        <name>Tesla, Inc. (TSLA)</name>
+        <ticker>TSLA</ticker>
+        <amountOfShares>2</amountOfShares>
+        <stockPrice>180.13</stockPrice>
+        <net>0.0</net>
+        <total>180.13</total>
+        <totalSpent>180.13</totalSpent>
+        <totalGained>0.0</totalGained>
+        <sector>Consumer Cyclical</sector>
+    </Stock>
     
     <Stock>
         <name>Amazon.com, Inc. (AMZN)</name>
         <ticker>AMZN</ticker>
-        <amountOfShares>0</amountOfShares>
+        <amountOfShares>1</amountOfShares>
         <stockPrice>98.95</stockPrice>
-        <net>295.8</net>
-        <total>296.85</total>
-        <totalSpent>100.00</totalSpent>
-        <totalGained>395.8</totalGained>
+        <net>0.0</net>
+        <total>98.95</total>
+        <totalSpent>98.95</totalSpent>
+        <totalGained>0.0</totalGained>
         <sector>Consumer Cyclical</sector>
     </Stock>
 </Account>

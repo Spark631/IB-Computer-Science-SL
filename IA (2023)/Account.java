@@ -5,10 +5,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 
 import javax.xml.transform.TransformerException;
 import java.io.OutputStream;
@@ -43,6 +46,10 @@ public class Account {
             // user element
             Element user = doc.createElement("user");
             rootElement.appendChild(user);
+
+            Element watchList = doc.createElement("watchList");
+            // watchList.setAttribute("xml:space", "preserve");
+            rootElement.appendChild(watchList);
 
             Element name = doc.createElement("name");
             name.appendChild(doc.createTextNode(firstName));
@@ -236,13 +243,12 @@ public class Account {
             Document doc = dBuilder.parse(inputFile);
 
             Element user = (Element) doc.getElementsByTagName("user").item(0);
-            user.setAttribute("xml:space", "preserve");
 
             // Get the existing <Account> element
             Element account = (Element) doc.getElementsByTagName("Account").item(0);
 
             NodeList stockList = doc.getElementsByTagName("Stock");
-            
+
             // check if the stock already exists
             for (int i = 0; i < stockList.getLength(); i++) {
                 System.out.println("Checking if stock already exists");
@@ -253,13 +259,13 @@ public class Account {
 
                 if (tickers.equals(stockInfo.getTicker())) {
                     stocks.getElementsByTagName("amountOfShares").item(0)
-                            .setTextContent(Integer.toString(stockInfo.getAmountOfShares() + amountOfShares ));
+                            .setTextContent(Integer.toString(stockInfo.getAmountOfShares() + amountOfShares));
                     stocks.getElementsByTagName("stockPrice").item(0)
                             .setTextContent(Double.toString(stockInfo.getPrice()));
 
                     stocks.getElementsByTagName("net").item(0).setTextContent(Double.toString(stockInfo.getNet()));
                     stocks.getElementsByTagName("total").item(0).setTextContent(Double.toString(stockInfo.getTotal()));
-
+                    removeWhiteSpace(doc);
                     TransformerFactory transformerFactory = TransformerFactory.newInstance();
                     Transformer transformer = transformerFactory.newTransformer();
                     DOMSource source = new DOMSource(doc);
@@ -315,6 +321,7 @@ public class Account {
 
             // Set the indent and indent amount properties on the transformer
             // preserveElement(doc);
+            removeWhiteSpace(doc);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -369,7 +376,7 @@ public class Account {
 
                         Double netPrice = Double
                                 .parseDouble(stockElement.getElementsByTagName("net").item(0).getTextContent());
-                        
+
                         netPrice = totalGained - totalSpent;
 
                         stockElement.getElementsByTagName("net").item(0)
@@ -380,7 +387,7 @@ public class Account {
                     }
                 }
             }
-
+            removeWhiteSpace(doc);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
@@ -391,6 +398,54 @@ public class Account {
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
+        }
+    }
+
+    public void addToWatchList(String ticker) {
+        try {
+            File inputFile = new File(ACCOUNT_FILE);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+
+            // parent node
+            Element watchList = (Element) doc.getElementsByTagName("watchList").item(0);
+            Element tickerElement = doc.createElement("ticker");
+            tickerElement.appendChild(doc.createTextNode(ticker));
+            watchList.appendChild(tickerElement);
+
+            removeWhiteSpace(doc);
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(inputFile);
+            transformer.transform(source, result);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    public static void removeWhiteSpace(Document doc) {
+        NodeList parentElements = doc.getElementsByTagName("*");
+
+        // Iterate through each parent element
+        for (int i = 0; i < parentElements.getLength(); i++) {
+            Element parentElement = (Element) parentElements.item(i);
+
+            // Remove whitespace text nodes
+            NodeList childNodes = parentElement.getChildNodes();
+            for (int j = 0; j < childNodes.getLength(); j++) {
+                Node node = childNodes.item(j);
+                if (node.getNodeType() == Node.TEXT_NODE && node.getTextContent().trim().isEmpty()) {
+                    parentElement.removeChild(node);
+                }
+            }
         }
     }
 

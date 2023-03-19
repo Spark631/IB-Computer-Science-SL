@@ -111,7 +111,7 @@ public class StockDriver {
                 System.out.println("Stock <" + (tracker + 1) + "-" + linkedListLength + ">");
 
                 System.out.println("1. Enter a number to select a stock: ");
-                System.out.println("2. Sort the portfolio");
+                System.out.println("2. Sort the stock");
                 System.out.println("0. Enter 0 to go back to the main menu: ");
 
                 tracker = (input.nextInt());
@@ -133,9 +133,6 @@ public class StockDriver {
                         System.out.println(yellow + border + reset);
                         break;
 
-                    case 2:
-                        System.out.println("Sort the portfolio");
-                        
                     case 0:
                         loop = false;
                         break;
@@ -187,6 +184,8 @@ public class StockDriver {
 
     public void optionFive() {
         System.out.println("Option 5");
+        Account account = new Account();
+        account.addToWatchList("TSLA");
     }
 
     public void optionSix() {
