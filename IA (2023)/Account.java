@@ -208,7 +208,6 @@ public class Account {
 
             // check if the stock already exists
             for (int i = 0; i < stockList.getLength(); i++) {
-                System.out.println("Checking if stock already exists");
                 Element stocks = (Element) stockList.item(i);
                 String tickers = stocks.getElementsByTagName("ticker").item(0).getTextContent();
                 Integer amountOfShares = Integer
@@ -340,7 +339,6 @@ public class Account {
     public void addToWatchList(String ticker) {
         try {
             Document doc = getDocument();
-
             // parent node
             Element watchList = (Element) doc.getElementsByTagName("watchList").item(0);
             Element tickerElement = doc.createElement("ticker");

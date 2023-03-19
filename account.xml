@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Account>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Account>
     <user>
         <name>Donny</name>
         <wallet>220.57</wallet>
@@ -9,6 +10,9 @@
         <ticker>TSLA</ticker>
         <ticker>TSLA</ticker>
         <ticker>TSLA</ticker>
+        <ticker/>
+        <ticker>amzn</ticker>
+        <ticker>aapl</ticker>
     </watchList>
     <Stock>
         <name>Amazon.com, Inc. (AMZN)</name>

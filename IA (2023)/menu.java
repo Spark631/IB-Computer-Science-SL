@@ -3,15 +3,17 @@ import java.io.*;
 
 class menu {
    public void showMenu() throws IOException {
+
       Account account = new Account();
-      account.checkUser();
-
-      Scanner input = new Scanner(System.in);
-      int choice = 0;
-
       StockDriver driver = new StockDriver();
+      Scanner input = new Scanner(System.in);
+
+      account.checkUser();
+      int choice = 0;
       do {
+
          driver.options();
+
          try {
             choice = input.nextInt();
          } catch (Exception e) {
@@ -21,16 +23,16 @@ class menu {
 
          switch (choice) {
             case 1:
-               driver.optionOne();
+               driver.optionOne(input, account);
                break;
             case 2:
-               driver.optionTwo();
+               driver.optionTwo(input, account);
                break;
             case 3:
-               driver.optionThree();
+               driver.optionThree(input, account);
                break;
             case 4:
-               driver.optionFour();
+               driver.optionFour(input, account);
                break;
             case 5:
                driver.optionFive();

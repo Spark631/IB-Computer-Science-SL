@@ -42,9 +42,8 @@ public class StockDriver {
         System.out.println(bold + yellow + border + reset);
     }
 
-    public void optionOne() {
+    public void optionOne(Scanner input, Account account) {
         try {
-            Account account = new Account();
             String name = account.getUser();
             double wallet = account.getWallet();
 
@@ -64,8 +63,6 @@ public class StockDriver {
             boolean loop = true;
 
             int tracker = 0;
-
-            Scanner input = new Scanner(System.in);
 
             int linkedListLength = stockList.size();
 
@@ -128,15 +125,15 @@ public class StockDriver {
         }
     }
 
-    public void optionTwo() {
+    public void optionTwo(Scanner input, Account account) {
         try {
             // Print out the border and prompt
             System.out.println(yellow + border + reset);
             System.out.println(bold + "     ENTER THE STOCK NAME     " + reset);
             System.out.println(yellow + border + reset);
 
-            Scanner input = new Scanner(System.in);
             String stockName = input.next().toUpperCase();
+
             Scraper scrape = new Scraper();
             String stock = scrape.findStockName(stockName);
             double stockPrice = scrape.findStockPrice(stockName);
@@ -174,7 +171,6 @@ public class StockDriver {
                     System.out.println(yellow + border + reset);
                     int shares = input.nextInt();
 
-                    Account account = new Account();
                     double balance = account.checkBalance();
                     double total = (shares * stockPrice);
 
@@ -204,11 +200,8 @@ public class StockDriver {
         }
     }
 
-    public void optionThree() {
+    public void optionThree(Scanner input, Account account) {
         System.out.println("Option 3");
-        Account account = new Account();
-
-        Scanner input = new Scanner(System.in);
 
         System.out.println(yellow + border + reset);
         System.out.println(blue + "Enter the name of the stock you want to sell: " + reset);
@@ -223,10 +216,13 @@ public class StockDriver {
 
     }
 
-    public void optionFour() {
-        System.out.println("Option 5");
-        Account account = new Account();
-        account.addToWatchList("TSLA");
+    public void optionFour(Scanner input, Account account) {
+        System.out.println(yellow + border + reset);
+        System.out.println(blue + "Enter the ticker name of the");
+        System.out.println("stock you want to add to your watchlist: " + reset);
+        System.out.println(yellow + border + reset);
+        String tickerName = input.next();
+        account.addToWatchList(tickerName);
     }
 
     public void optionFive() {
