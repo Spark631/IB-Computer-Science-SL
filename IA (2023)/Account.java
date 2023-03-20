@@ -48,7 +48,6 @@ public class Account {
             rootElement.appendChild(user);
 
             Element watchList = doc.createElement("watchList");
-            // watchList.setAttribute("xml:space", "preserve");
             rootElement.appendChild(watchList);
 
             Element name = doc.createElement("name");
@@ -132,6 +131,38 @@ public class Account {
             return stockLists;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String[][] getWatchList() {
+        try {
+            Document doc = getDocument();
+            NodeList watchList = doc.getElementsByTagName("watchList").item(0).getChildNodes();
+
+            Scraper scraper = new Scraper();
+
+            String[][] watchListArray = new String[watchList.getLength()][4];
+
+            for (int i = 0; i < watchList.getLength(); i++) {
+                Node ticker = watchList.item(i);
+                if (ticker.getNodeType() == Node.ELEMENT_NODE) {
+                    Element tickerElement = (Element) ticker;
+                    String tickerName = tickerElement.getElementsByTagName("name").item(0).getTextContent();
+                    String tickerPrice = tickerElement.getElementsByTagName("price").item(0).getTextContent();
+                    String tickerTargetPrice = tickerElement.getElementsByTagName("targetPrice").item(0)
+                            .getTextContent();
+                    String tickerCurrentPrice = Double.toString(scraper.findStockPrice(tickerName));
+                    String[] subArray = { "Name: " + tickerName, "Price Before: " + tickerPrice,
+                            "Target Price: " + tickerTargetPrice, "Current Price: " + tickerCurrentPrice };
+
+                    watchListArray[i] = subArray;
+                }
+            }
+
+            return watchListArray;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
         return null;
     }
@@ -336,13 +367,25 @@ public class Account {
         }
     }
 
-    public void addToWatchList(String ticker) {
+    public void addToWatchList(String ticker, double price, double targetPrice) {
         try {
             Document doc = getDocument();
             // parent node
             Element watchList = (Element) doc.getElementsByTagName("watchList").item(0);
             Element tickerElement = doc.createElement("ticker");
-            tickerElement.appendChild(doc.createTextNode(ticker));
+
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(ticker));
+            tickerElement.appendChild(name);
+
+            Element priceElement = doc.createElement("price");
+            priceElement.appendChild(doc.createTextNode(Double.toString(price)));
+            tickerElement.appendChild(priceElement);
+
+            Element targetPriceElement = doc.createElement("targetPrice");
+            targetPriceElement.appendChild(doc.createTextNode(Double.toString(targetPrice)));
+            tickerElement.appendChild(targetPriceElement);
+
             watchList.appendChild(tickerElement);
 
             removeWhiteSpace(doc);

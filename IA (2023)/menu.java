@@ -7,6 +7,7 @@ class menu {
       Account account = new Account();
       StockDriver driver = new StockDriver();
       Scanner input = new Scanner(System.in);
+      Scraper scraper = new Scraper();
 
       account.checkUser();
       int choice = 0;
@@ -32,7 +33,7 @@ class menu {
                driver.optionThree(input, account);
                break;
             case 4:
-               driver.optionFour(input, account);
+               driver.optionFour(input, account, scraper);
                break;
             case 5:
                driver.optionFive();

@@ -96,19 +96,4 @@ class Stock {
         this.sector = sector;
     }
 
-    // public String display() {
-    // return (name + "," + ticker + "," + amountOfShares + "," + price + "," + net
-    // + "," + totalOfMoneySpent
-    // + "," + totalOfMoneyGained + "," + sector);
-    // }
-
 }
-
-// class StockCalculations extends Stock {
-// public StockCalculations(String name, String ticker, int amountOfShares,
-// double price, int net, int totalOfMoneySpent, int totalOfMoneyGained,
-// String sector) {
-// super(name, ticker, amountOfShares, price, net, totalOfMoneySpent,
-// totalOfMoneyGained, sector);
-// }
-// }

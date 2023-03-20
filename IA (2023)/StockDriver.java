@@ -216,13 +216,60 @@ public class StockDriver {
 
     }
 
-    public void optionFour(Scanner input, Account account) {
+    public void optionFour(Scanner input, Account account, Scraper scrape) {
+        System.out.println(cyan + "Watchlist" + reset);
         System.out.println(yellow + border + reset);
-        System.out.println(blue + "Enter the ticker name of the");
-        System.out.println("stock you want to add to your watchlist: " + reset);
+        System.out.println(green + "1: Add a stock to your watchlist" + reset);
+        System.out.println(blue + "2: View your watchlist" + reset);
+        System.out.println(red + "3: Remove a stock from your watchlist" + reset);
+        System.out.println(black + "4: Return to menu" + reset);
         System.out.println(yellow + border + reset);
-        String tickerName = input.next();
-        account.addToWatchList(tickerName);
+
+        int choice = input.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println(yellow + border + reset);
+                System.out.println(blue + "Enter the ticker name of the");
+                System.out.println("stock you want to add to your watchlist: " + reset);
+                System.out.println(yellow + border + reset);
+
+                String tickerName = input.next().toUpperCase();
+                double price = scrape.findStockPrice(tickerName);
+
+                System.out.println(yellow + border + reset);
+                System.out.println(magenta + "Enter the price you want to be notified at: " + reset);
+                System.out.println("Current " + tickerName + " price: " + green + price + reset);
+                System.out.println(yellow + border + reset);
+
+                double targetPrice = input.nextDouble();
+
+                account.addToWatchList(tickerName, price, targetPrice);
+                break;
+            case 2:
+                String[][] watchList = account.getWatchList();
+
+                for (int i = 0; i < watchList.length; i++) {
+                    for (int j = 0; j < watchList[i].length; j++) {
+                        if (watchList[i][j] != null) {
+                            System.out.print(watchList[i][j] + "\n");
+                        }
+                    }
+                    System.out.println("---------------------");
+                }
+
+                break;
+            case 3:
+                // account.removeStockFromWatchList();
+                break;
+            case 4:
+                System.out.println("Return to menu");
+                break;
+            default:
+                System.out.println("Invalid choice");
+                break;
+        }
+
     }
 
     public void optionFive() {
