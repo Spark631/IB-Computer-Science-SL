@@ -135,29 +135,51 @@ public class Account {
         return null;
     }
 
-    public String[][] getWatchList() {
+    public WatchList[] getWatchList() {
         try {
             Document doc = getDocument();
             NodeList watchList = doc.getElementsByTagName("watchList").item(0).getChildNodes();
 
             Scraper scraper = new Scraper();
-
-            String[][] watchListArray = new String[watchList.getLength()][4];
-
+            // int watchListLength = ((watchList.getLength() - 1) / 2);
+            int watchListLength = (watchList.getLength());
+            System.out.println("Watchlist length: " + watchListLength);
+            WatchList[] watchListArray = new WatchList[watchListLength];
+            int tracker = 0;
             for (int i = 0; i < watchList.getLength(); i++) {
                 Node ticker = watchList.item(i);
                 if (ticker.getNodeType() == Node.ELEMENT_NODE) {
+                    System.out.println("THIS IS I: " + i);
                     Element tickerElement = (Element) ticker;
                     String tickerName = tickerElement.getElementsByTagName("name").item(0).getTextContent();
-                    String tickerPrice = tickerElement.getElementsByTagName("price").item(0).getTextContent();
-                    String tickerTargetPrice = tickerElement.getElementsByTagName("targetPrice").item(0)
-                            .getTextContent();
-                    String tickerCurrentPrice = Double.toString(scraper.findStockPrice(tickerName));
-                    String[] subArray = { "Name: " + tickerName, "Price Before: " + tickerPrice,
-                            "Target Price: " + tickerTargetPrice, "Current Price: " + tickerCurrentPrice };
 
-                    watchListArray[i] = subArray;
+                    double tickerPrice = Double
+                            .parseDouble(tickerElement.getElementsByTagName("price").item(0).getTextContent());
+
+                    double tickerTargetPrice = Double
+                            .parseDouble(tickerElement.getElementsByTagName("targetPrice").item(0).getTextContent());
+                    double tickerCurrentPrice = (scraper.findStockPrice(tickerName));
+
+                    WatchList watchListObject = new WatchList(tickerName, tickerPrice, tickerTargetPrice,
+                            tickerCurrentPrice);
+
+                    System.out.println("Watchlist object: " + watchListObject);
+                    System.out.println("This is meow: " + (i));
+                    watchListArray[i - tracker] = watchListObject;
+
+                    System.out.println("Ticker: " + tickerName + " Price: " + tickerPrice + " Target Price: "
+                            + tickerTargetPrice + " Current Price: " + tickerCurrentPrice);
+
                 }
+                tracker += 1;
+            }
+
+            for (int i = 0; i < watchListLength; i++) {
+                if (watchListArray[i] == null) {
+                    System.out.println("null");
+                    continue;
+                }
+                System.out.println(watchListArray[i].getTargetPrice());
             }
 
             return watchListArray;

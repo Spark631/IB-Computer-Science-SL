@@ -247,15 +247,22 @@ public class StockDriver {
                 account.addToWatchList(tickerName, price, targetPrice);
                 break;
             case 2:
-                String[][] watchList = account.getWatchList();
+                WatchList[] watchList = account.getWatchList();
 
                 for (int i = 0; i < watchList.length; i++) {
-                    for (int j = 0; j < watchList[i].length; j++) {
-                        if (watchList[i][j] != null) {
-                            System.out.print(watchList[i][j] + "\n");
-                        }
+                    if (watchList[i] == null) {
+                        System.out.println("Watchlist is empty");
+                        System.out.println(i);
+                        return;
                     }
-                    System.out.println("---------------------");
+                }
+
+                for (WatchList item : watchList) {
+                    System.out.println("Name: " + item.getTicker());
+                    System.out.println("Price Before: " + item.getBeforePrice());
+                    System.out.println("Target Price: " + item.getTargetPrice());
+                    System.out.println("Current Price: " + item.getCurrentPrice());
+                    System.out.println("----------------------------------");
                 }
 
                 break;

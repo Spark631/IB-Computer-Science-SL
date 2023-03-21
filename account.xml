@@ -21,6 +21,16 @@
             <price>155.0</price>
             <targetPrice>160.0</targetPrice>
         </ticker>
+        <ticker>
+            <name>MSFW</name>
+            <price>67.4</price>
+            <targetPrice>70.0</targetPrice>
+        </ticker>
+        <ticker>
+            <name>GOOGL</name>
+            <price>101.22</price>
+            <targetPrice>105.0</targetPrice>
+        </ticker>
     </watchList>
     <Stock>
         <name>Tesla, Inc. (TSLA)</name>
