@@ -249,25 +249,24 @@ public class StockDriver {
             case 2:
                 WatchList[] watchList = account.getWatchList();
 
-                for (int i = 0; i < watchList.length; i++) {
-                    if (watchList[i] == null) {
-                        System.out.println("Watchlist is empty");
-                        System.out.println(i);
-                        return;
-                    }
-                }
+                System.out.format("+--------------+--------------+---------------+--------------+----------+%n");
+                System.out.format("|     Name     | Price Before | Target Price  | Current Price|    Net   |%n");
+                System.out.format("+--------------+--------------+---------------+--------------+----------+%n");
 
                 for (WatchList item : watchList) {
-                    System.out.println("Name: " + item.getTicker());
-                    System.out.println("Price Before: " + item.getBeforePrice());
-                    System.out.println("Target Price: " + item.getTargetPrice());
-                    System.out.println("Current Price: " + item.getCurrentPrice());
-                    System.out.println("----------------------------------");
+                    double net = item.getCurrentPrice() - item.getTargetPrice();
+                    String netColor = net >= 0 ? green : red;
+                    System.out.format("| %-12s | $%-11.2f | $%-12.2f | $%-11.2f | %s$%-7.2f%s |%n",
+                            item.getTicker(), item.getBeforePrice(), item.getTargetPrice(), item.getCurrentPrice(),
+                            netColor, net, reset);
                 }
+
+                System.out.format("+--------------+--------------+---------------+--------------+----------+%n");
 
                 break;
             case 3:
-                // account.removeStockFromWatchList();
+                String name = input.next().toUpperCase();
+                account.removeWatchList(name);
                 break;
             case 4:
                 System.out.println("Return to menu");
@@ -287,6 +286,7 @@ public class StockDriver {
         System.out.println("Option 6");
     }
 
+    // big
     public void optionSeven() {
         System.out.println("Option 7");
         try {

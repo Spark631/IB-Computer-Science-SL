@@ -141,15 +141,12 @@ public class Account {
             NodeList watchList = doc.getElementsByTagName("watchList").item(0).getChildNodes();
 
             Scraper scraper = new Scraper();
-            // int watchListLength = ((watchList.getLength() - 1) / 2);
             int watchListLength = (watchList.getLength());
-            System.out.println("Watchlist length: " + watchListLength);
-            WatchList[] watchListArray = new WatchList[watchListLength];
+            WatchList[] watchListArray = new WatchList[watchListLength / 2];
             int tracker = 0;
             for (int i = 0; i < watchList.getLength(); i++) {
                 Node ticker = watchList.item(i);
-                if (ticker.getNodeType() == Node.ELEMENT_NODE) {
-                    System.out.println("THIS IS I: " + i);
+                if (ticker.getNodeType() == Node.ELEMENT_NODE && tracker < watchListLength / 2) {
                     Element tickerElement = (Element) ticker;
                     String tickerName = tickerElement.getElementsByTagName("name").item(0).getTextContent();
 
@@ -163,30 +160,38 @@ public class Account {
                     WatchList watchListObject = new WatchList(tickerName, tickerPrice, tickerTargetPrice,
                             tickerCurrentPrice);
 
-                    System.out.println("Watchlist object: " + watchListObject);
-                    System.out.println("This is meow: " + (i));
-                    watchListArray[i - tracker] = watchListObject;
+                    watchListArray[tracker] = watchListObject;
 
-                    System.out.println("Ticker: " + tickerName + " Price: " + tickerPrice + " Target Price: "
-                            + tickerTargetPrice + " Current Price: " + tickerCurrentPrice);
-
+                    tracker += 1;
                 }
-                tracker += 1;
             }
-
-            for (int i = 0; i < watchListLength; i++) {
-                if (watchListArray[i] == null) {
-                    System.out.println("null");
-                    continue;
-                }
-                System.out.println(watchListArray[i].getTargetPrice());
-            }
-
             return watchListArray;
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
         return null;
+    }
+
+    public void removeWatchList(String ticker) {
+
+        try {
+            Document doc = getDocument();
+            NodeList watchList = doc.getElementsByTagName("watchList").item(0).getChildNodes();
+
+            for (int i = 0; i < watchList.getLength(); i++) {
+                Node tickerNode = watchList.item(i);
+                if (tickerNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element tickerElement = (Element) tickerNode;
+                    String tickerName = tickerElement.getElementsByTagName("name").item(0).getTextContent();
+                    if (tickerName.equals(ticker)) {
+                        tickerElement.getParentNode().removeChild(tickerElement);
+                    }
+                }
+            }
+            writeDocument(doc, "no");
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
     public String checkUser() {
