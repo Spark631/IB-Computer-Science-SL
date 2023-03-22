@@ -1,6 +1,8 @@
-import java.io.*;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.LinkedList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class StockDriver {
     final static String reset = "\u001B[0m";
@@ -32,6 +34,8 @@ public class StockDriver {
         String name = account.checkUser();
         System.out.println(bold + yellow + border + reset);
         System.out.printf("%sWelcome, %-27s%s\n", bold, name, reset);
+        // get the current date and time
+        System.out.printf("%sToday is: %-27s%s\n", bold, java.time.LocalDate.now(), reset);
         System.out.println(bold + cyan + "Please select an option:" + reset);
         System.out.println(bold + yellow + border + reset);
         System.out.println(bold + blue + "1. View your portfolio" + reset);
@@ -84,7 +88,8 @@ public class StockDriver {
                 System.out.println("Stock <" + (1) + "-" + linkedListLength + ">");
 
                 System.out.println(yellow + "1. Select a stock: " + reset);
-                System.out.println(blue + "2. Sort the stock" + reset);
+                System.out.println(blue + "2. Sort by number of shares" + reset);
+                System.out.println(magenta + "3. Sort by stock name" + reset);
                 System.out.println(red + "0. Enter 0 to go back to the main menu: " + reset);
 
                 tracker = (input.nextInt());
@@ -107,10 +112,26 @@ public class StockDriver {
                         System.out.println("Total Gained: " + stockList.get(tracker).getTotalMoneyGained());
                         System.out.println("Sector: " + stockList.get(tracker).getSector());
                         System.out.println(yellow + border + reset);
+                        userContinue();
                         break;
 
                     case 2:
+                        Collections.sort(stockList, new Comparator<Stock>() {
+                            @Override
+                            public int compare(Stock s1, Stock s2) {
+                                return Double.compare(s1.getAmountOfShares(), s2.getAmountOfShares());
+                            }
+                        });
+                        continue;
 
+                    case 3:
+                        Collections.sort(stockList, new Comparator<Stock>() {
+                            @Override
+                            public int compare(Stock s1, Stock s2) {
+                                return s1.getName().compareTo(s2.getName());
+                            }
+                        });
+                        continue;
                     case 0:
                         loop = false;
                         break;
@@ -130,8 +151,16 @@ public class StockDriver {
             // Print out the border and prompt
             System.out.println(yellow + border + reset);
             System.out.println(bold + "     ENTER THE STOCK NAME     " + reset);
+            System.out.println("       (e.g. AAPL, AMZN)     ");
             System.out.println(yellow + border + reset);
+            System.out.println(red + "0: Quit" + reset);
 
+            if (input.hasNextInt()) {
+                int exit = input.nextInt();
+                if (exit == 0) {
+                    return;
+                }
+            }
             String stockName = input.next().toUpperCase();
 
             Scraper scrape = new Scraper();
@@ -145,191 +174,201 @@ public class StockDriver {
             }
 
             // Print out the header and top border
-            System.out.println(yellow + "STOCK INFO" + reset);
-            System.out.println(yellow + border + reset);
+            while (true) {
+                System.out.println(yellow + "STOCK INFO" + reset);
+                System.out.println(yellow + border + reset);
 
-            // Print out the stock name and price
-            System.out.println("Stock: " + stock);
-            System.out.println("Price: " + stockPrice);
+                // Print out the stock name and price
+                System.out.println("Stock: " + stock);
+                System.out.println("Price: " + stockPrice);
 
-            // Print out the menu options
-            System.out.println(bold + "1. To buy shares" + reset);
-            System.out.println(bold + "2. To view bar chart" + reset);
-            System.out.println(bold + "3. To return to menu" + reset);
+                // Print out the menu options
+                System.out.println(bold + "1. To buy shares" + reset);
+                System.out.println(bold + "2. To view bar chart" + reset);
+                System.out.println(bold + "3. To return to menu" + reset);
 
-            // Print out the bottom border
-            System.out.println(yellow + border + reset);
+                // Print out the bottom border
+                System.out.println(yellow + border + reset);
 
-            int choice = input.nextInt();
+                int choice = input.nextInt();
 
-            switch (choice) {
-                case 1:
+                switch (choice) {
+                    case 1:
 
-                    // Print out the border and prompt
-                    System.out.println(yellow + border + reset);
-                    System.out.println(bold + "HOW MANY SHARES WOULD YOU LIKE TO BUY?" + reset);
-                    System.out.println(yellow + border + reset);
-                    int shares = input.nextInt();
+                        // Print out the border and prompt
+                        System.out.println(yellow + border + reset);
+                        System.out.println(bold + "HOW MANY SHARES WOULD YOU LIKE TO BUY?" + reset);
+                        System.out.println(yellow + border + reset);
+                        System.out.println(red + "0: Quit" + reset);
+                        int shares = input.nextInt();
 
-                    double balance = account.checkBalance();
-                    double total = (shares * stockPrice);
+                        if (shares == 0) {
+                            return;
+                        }
 
-                    if (total <= balance) {
-                        account.updateBalance(-total);
-                    } else {
-                        System.out.println("Insufficient funds");
-                        break;
-                    }
-                    System.out.println("You have bought " + shares + " shares of " + stockName);
-                    Stock stockObj = new Stock(stock, stockName, shares, stockPrice, 0, total, 0, sector);
-                    account.addStock(stockObj);
+                        double balance = account.checkBalance();
+                        double total = (shares * stockPrice);
 
-                    break;
-                case 2:
-                    scrape.createHashMap(stockName);
-                    break;
-                case 3:
-                    System.out.println("Return to Menu");
-                default:
-                    System.out.println("Invalid choice");
-                    break;
+                        if (total <= balance) {
+                            account.updateBalance(-total);
+                        } else {
+                            System.out.println(red + "Insufficient funds" + reset);
+                            System.out.println("Your are short " + red + (total - balance) + reset + " dollars");
+                            break;
+                        }
+                        System.out.println(red + "-" + total + reset);
+                        System.out.println("You have bought " + green + shares + reset + " shares of " + stockName);
+                        System.out.println("Your new balance is: " + green + account.checkBalance() + reset);
+                        Stock stockObj = new Stock(stock, stockName, shares, stockPrice, 0, total, 0, sector);
+                        account.addStock(stockObj);
+                        userContinue();
+                        return;
+
+                    case 2:
+                        scrape.createHashMap(stockName);
+                    case 3:
+                        userContinue();
+                        return;
+                    default:
+                        System.out.println("Invalid choice");
+                }
+
             }
 
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            System.out.println("Invalid input");
+            System.out.println("Error: " + e);
         }
+
     }
 
     public void optionThree(Scanner input, Account account) {
-        System.out.println("Option 3");
+        try {
+            double balanceBefore = account.checkBalance();
+            System.out.println(yellow + border + reset);
+            System.out.println(blue + "Enter the name of the stock you want to sell: " + reset);
+            System.out.println(red + "0: Quit" + reset);
+            System.out.println(yellow + border + reset);
 
-        System.out.println(yellow + border + reset);
-        System.out.println(blue + "Enter the name of the stock you want to sell: " + reset);
-        System.out.println(yellow + border + reset);
-        String name = input.nextLine();
-        System.out.println(yellow + border + reset);
-        System.out.println(magenta + "Enter the amount of shares you want to sell: " + reset);
-        System.out.println(yellow + border + reset);
-        int amount = input.nextInt();
+            String name = input.next();
+            System.out.println(yellow + border + reset);
+            System.out.println(magenta + "Enter the amount of shares you want to sell: " + reset);
+            System.out.println(red + "0: Quit" + reset);
+            System.out.println(yellow + border + reset);
+            int amount = input.nextInt();
 
-        account.sellStock(name, amount);
+            boolean check = account.sellStock(name, amount);
+            if (!check) {
+                return;
+            }
+            System.out.println(green + "You have sold " + amount + " shares of " + name + reset);
+            System.out.println("You have earned " + green
+                    + (new DecimalFormat("0.00").format((account.checkBalance() - balanceBefore))) + reset
+                    + " dollars");
+
+            System.out.println("Your new balance is: " + green + account.checkBalance() + reset);
+
+        } catch (Exception e) {
+            System.out.println("Invalid input");
+            System.out.println("Error: " + e);
+        }
 
     }
 
     public void optionFour(Scanner input, Account account, Scraper scrape) {
-        System.out.println(cyan + "Watchlist" + reset);
-        System.out.println(yellow + border + reset);
-        System.out.println(green + "1: Add a stock to your watchlist" + reset);
-        System.out.println(blue + "2: View your watchlist" + reset);
-        System.out.println(red + "3: Remove a stock from your watchlist" + reset);
-        System.out.println(black + "4: Return to menu" + reset);
-        System.out.println(yellow + border + reset);
-
-        int choice = input.nextInt();
-
-        switch (choice) {
-            case 1:
-                System.out.println(yellow + border + reset);
-                System.out.println(blue + "Enter the ticker name of the");
-                System.out.println("stock you want to add to your watchlist: " + reset);
-                System.out.println(yellow + border + reset);
-
-                String tickerName = input.next().toUpperCase();
-                double price = scrape.findStockPrice(tickerName);
-
-                System.out.println(yellow + border + reset);
-                System.out.println(magenta + "Enter the price you want to be notified at: " + reset);
-                System.out.println("Current " + tickerName + " price: " + green + price + reset);
-                System.out.println(yellow + border + reset);
-
-                double targetPrice = input.nextDouble();
-
-                account.addToWatchList(tickerName, price, targetPrice);
-                break;
-            case 2:
-                WatchList[] watchList = account.getWatchList();
-
-                System.out.format("+--------------+--------------+---------------+--------------+----------+%n");
-                System.out.format("|     Name     | Price Before | Target Price  | Current Price|    Net   |%n");
-                System.out.format("+--------------+--------------+---------------+--------------+----------+%n");
-
-                for (WatchList item : watchList) {
-                    double net = item.getCurrentPrice() - item.getTargetPrice();
-                    String netColor = net >= 0 ? green : red;
-                    System.out.format("| %-12s | $%-11.2f | $%-12.2f | $%-11.2f | %s$%-7.2f%s |%n",
-                            item.getTicker(), item.getBeforePrice(), item.getTargetPrice(), item.getCurrentPrice(),
-                            netColor, net, reset);
-                }
-
-                System.out.format("+--------------+--------------+---------------+--------------+----------+%n");
-
-                break;
-            case 3:
-                String name = input.next().toUpperCase();
-                account.removeWatchList(name);
-                break;
-            case 4:
-                System.out.println("Return to menu");
-                break;
-            default:
-                System.out.println("Invalid choice");
-                break;
-        }
-
-    }
-
-    public void optionFive() {
-        System.exit(0);
-    }
-
-    public void optionSix() {
-        System.out.println("Option 6");
-    }
-
-    // big
-    public void optionSeven() {
-        System.out.println("Option 7");
         try {
-            File readFile = new File("Stock.txt");
-            Scanner input = new Scanner(readFile);
 
-            int count = 0;
-            Stock[] stockArray = new Stock[20];
+            while (true) {
 
-            while (input.hasNextLine()) {
-                String fileLine = input.nextLine();
-                String[] data = fileLine.split(",");
+                System.out.println(cyan + "Watchlist" + reset);
+                System.out.println(yellow + border + reset);
+                System.out.println(green + "1: Add a stock to your watchlist" + reset);
+                System.out.println(blue + "2: View your watchlist" + reset);
+                System.out.println(red + "3: Remove a stock from your watchlist" + reset);
+                System.out.println(black + "4: Return to menu" + reset);
+                System.out.println(yellow + border + reset);
 
-                for (int i = 0; i < data.length; i++) {
-                    System.out.println(data[i]);
+                int choice = input.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        System.out.println(yellow + border + reset);
+                        System.out.println(blue + "Enter the ticker name of the");
+                        System.out.println("stock you want to add to your watchlist: " + reset);
+                        System.out.println(yellow + border + reset);
+
+                        String tickerName = input.next().toUpperCase();
+                        double price = scrape.findStockPrice(tickerName);
+
+                        System.out.println(yellow + border + reset);
+                        System.out.println(magenta + "Enter your target price: " + reset);
+                        System.out.println("Current " + tickerName + " price: " + green + price + reset);
+                        System.out.println(yellow + border + reset);
+
+                        double targetPrice = input.nextDouble();
+
+                        account.addToWatchList(tickerName, price, targetPrice);
+                        break;
+                    case 2:
+                        WatchList[] watchList = account.getWatchList();
+
+                        System.out
+                                .format("+--------------+--------------+---------------+--------------+----------+%n");
+                        System.out
+                                .format("|     Name     | Price Before | Target Price  | Current Price|    Net   |%n");
+                        System.out
+                                .format("+--------------+--------------+---------------+--------------+----------+%n");
+
+                        for (WatchList item : watchList) {
+                            double net = item.getCurrentPrice() - item.getTargetPrice();
+                            String netColor = net >= 0 ? green : red;
+                            System.out.format("| %-12s | $%-11.2f | $%-12.2f | $%-11.2f | %s$%-7.2f%s |%n",
+                                    item.getTicker(), item.getBeforePrice(), item.getTargetPrice(),
+                                    item.getCurrentPrice(),
+                                    netColor, net, reset);
+                        }
+
+                        System.out
+                                .format("+--------------+--------------+---------------+--------------+----------+%n");
+                        userContinue();
+                        break;
+
+                    case 3:
+                        System.out.println(yellow + border + reset);
+                        System.out.println(blue + "Enter the ticker name of the");
+                        System.out.println("stock you want to remove from");
+                        System.out.println("your watchlist: " + reset);
+                        System.out.println(red + "0: Quit" + reset);
+                        System.out.println(yellow + border + reset);
+
+                        if (input.hasNextInt()) {
+                            int quit = input.nextInt();
+                            if (quit == 0) {
+                                break;
+                            }
+                        }
+
+                        String name = input.next().toUpperCase();
+                        account.removeWatchList(name);
+                        break;
+                    case 4:
+                        System.out.println("Return to menu");
+                        return;
+                    default:
+                        System.out.println("Invalid choice");
+                        return;
                 }
-
-                String name = data[0];
-                String ticker = data[1];
-                int quantity = Integer.parseInt(data[2]);
-                double price = Double.parseDouble(data[3]);
-                int marketCap = Integer.parseInt(data[4]);
-                int high = Integer.parseInt(data[5]);
-                int low = Integer.parseInt(data[6]);
-                String sector = data[7];
-
-                Stock stock = new Stock(name, ticker, quantity, price, marketCap, high, low, sector);
-                stockArray[count] = stock;
-                count++;
-                // stockArray[0] = stocks.Stock(data[0], data[1], Integer.parseInt(data[2]),
-                // Double.parseDouble(data[3]),
-                // Double.parseDouble(data[4]), Integer.parseInt(data[5]),
-                // Integer.parseInt(data[6]), Integer.parseInt(data[7]), data[8]);
             }
-
-            input.close();
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            System.out.println("Invalid input");
+            System.out.println("Error: " + e);
         }
     }
 
-    public void optionEight() {
-
+    public static void userContinue() {
+        System.out.println(white + "Press enter to continue" + reset);
+        Scanner input = new Scanner(System.in);
+        input.nextLine();
     }
 
 }

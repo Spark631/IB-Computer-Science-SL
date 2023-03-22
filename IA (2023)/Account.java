@@ -1,25 +1,16 @@
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 
-import javax.xml.transform.TransformerException;
-import java.io.OutputStream;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import java.io.File;
 import java.util.Scanner;
 import java.util.LinkedList;
@@ -137,6 +128,7 @@ public class Account {
 
     public WatchList[] getWatchList() {
         try {
+            System.out.println("Getting watchlist. . . ");
             Document doc = getDocument();
             NodeList watchList = doc.getElementsByTagName("watchList").item(0).getChildNodes();
 
@@ -244,7 +236,6 @@ public class Account {
             Element user = (Element) userList.item(0);
             double balance = Double.parseDouble(user.getElementsByTagName("wallet").item(0).getTextContent());
             balance = Math.round((balance + money) * 100.00) / 100.00;
-            System.out.println("Your new balance should be: " + balance);
             user.getElementsByTagName("wallet").item(0).setTextContent(Double.toString(balance));
             writeDocument(doc, "no");
 
@@ -339,7 +330,7 @@ public class Account {
         }
     }
 
-    public void sellStock(String stock, int shares) {
+    public boolean sellStock(String stock, int shares) {
         try {
             Document doc = getDocument();
 
@@ -355,13 +346,10 @@ public class Account {
                         amountOfShares -= shares;
                         stockElement.getElementsByTagName("amountOfShares").item(0)
                                 .setTextContent(Integer.toString(amountOfShares));
-                        System.out.println("You have sold " + shares + " shares of " + stock);
 
                         Scraper scraper = new Scraper();
                         double price = scraper.findStockPrice(stock);
                         total = price * shares;
-
-                        System.out.println("You have gained " + price * shares + " dollars");
 
                         Double totalGained = Double
                                 .parseDouble(stockElement.getElementsByTagName("totalGained").item(0).getTextContent());
@@ -382,6 +370,7 @@ public class Account {
                         break;
                     } else {
                         System.out.println("You do not have enough shares to sell");
+                        return false;
                     }
                 }
             }
@@ -392,6 +381,7 @@ public class Account {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        return true;
     }
 
     public void addToWatchList(String ticker, double price, double targetPrice) {

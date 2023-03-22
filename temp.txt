@@ -18,3 +18,47 @@
         Stock s18 = new Stock("Texas Instruments", "TXN", 180, 1800, 18000, 1900, 1700, new String[] {"Information Technology"});
         Stock s19 = new Stock("Broadcom", "AVGO", 190, 1900, 19000, 2000, 1800, new String[] {"Information Technology"});
         Stock s20 = new Stock("Micron", "MU", 200, 2000, 20000, 2100, 1900, new String[] {"Information Technology"});
+
+
+
+          // big
+    public void optionSeven() {
+        System.out.println("Option 7");
+        try {
+            File readFile = new File("Stock.txt");
+            Scanner input = new Scanner(readFile);
+
+            int count = 0;
+            Stock[] stockArray = new Stock[20];
+
+            while (input.hasNextLine()) {
+                String fileLine = input.nextLine();
+                String[] data = fileLine.split(",");
+
+                for (int i = 0; i < data.length; i++) {
+                    System.out.println(data[i]);
+                }
+
+                String name = data[0];
+                String ticker = data[1];
+                int quantity = Integer.parseInt(data[2]);
+                double price = Double.parseDouble(data[3]);
+                int marketCap = Integer.parseInt(data[4]);
+                int high = Integer.parseInt(data[5]);
+                int low = Integer.parseInt(data[6]);
+                String sector = data[7];
+
+                Stock stock = new Stock(name, ticker, quantity, price, marketCap, high, low, sector);
+                stockArray[count] = stock;
+                count++;
+                // stockArray[0] = stocks.Stock(data[0], data[1], Integer.parseInt(data[2]),
+                // Double.parseDouble(data[3]),
+                // Double.parseDouble(data[4]), Integer.parseInt(data[5]),
+                // Integer.parseInt(data[6]), Integer.parseInt(data[7]), data[8]);
+            }
+
+            input.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+    }

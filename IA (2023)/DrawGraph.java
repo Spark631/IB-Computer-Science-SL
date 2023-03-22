@@ -94,10 +94,7 @@ public class DrawGraph extends JPanel {
    }
 
    public void graph(LinkedHashMap<String, Double> data) {
-      // Create test data
-      // Create and show graph
       JFrame frame = new JFrame("Graph");
-      // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       DrawGraph panel = new DrawGraph(data);
       frame.add(panel);
       frame.pack();

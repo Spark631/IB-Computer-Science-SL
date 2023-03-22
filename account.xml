@@ -2,15 +2,10 @@
 <Account>
     <user>
         <name>Donny</name>
-        <wallet>319.87</wallet>
+        <wallet>10352.55</wallet>
         <accountActivatedDate>2023-03-19</accountActivatedDate>
     </user>
     <watchList>
-        <ticker>
-            <name>TSLA</name>
-            <price>180.13</price>
-            <targetPrice>190.0</targetPrice>
-        </ticker>
         <ticker>
             <name>AMZN</name>
             <price>98.95</price>
@@ -31,16 +26,69 @@
             <price>101.22</price>
             <targetPrice>105.0</targetPrice>
         </ticker>
+        <ticker>
+            <name>BRK.A</name>
+            <price>0.0</price>
+            <targetPrice>0.0</targetPrice>
+        </ticker>
+        <ticker>
+            <name>BRK</name>
+            <price>0.0</price>
+            <targetPrice>0.0</targetPrice>
+        </ticker>
+        <ticker>
+            <name>VUZI</name>
+            <price>3.94</price>
+            <targetPrice>800.0</targetPrice>
+        </ticker>
+        <ticker>
+            <name>TSLA</name>
+            <price>197.58</price>
+            <targetPrice>1000.0</targetPrice>
+        </ticker>
     </watchList>
     <Stock>
         <name>Tesla, Inc. (TSLA)</name>
         <ticker>TSLA</ticker>
-        <amountOfShares>1</amountOfShares>
-        <stockPrice>180.13</stockPrice>
-        <net>0.0</net>
-        <total>180.13</total>
+        <amountOfShares>0</amountOfShares>
+        <stockPrice>197.58</stockPrice>
+        <net>807.7700000000001</net>
+        <total>197.58</total>
         <totalSpent>180.13</totalSpent>
-        <totalGained>0.0</totalGained>
+        <totalGained>987.9000000000001</totalGained>
         <sector>Consumer Cyclical</sector>
+    </Stock>
+    <Stock>
+        <name>Amazon.com, Inc. (AMZN)</name>
+        <ticker>AMZN</ticker>
+        <amountOfShares>2</amountOfShares>
+        <stockPrice>100.61</stockPrice>
+        <net>-201.21999999999997</net>
+        <total>301.83</total>
+        <totalSpent>301.83</totalSpent>
+        <totalGained>100.61</totalGained>
+        <sector>Consumer Cyclical</sector>
+    </Stock>
+    <Stock>
+        <name>Apple Inc. (AAPL)</name>
+        <ticker>AAPL</ticker>
+        <amountOfShares>4</amountOfShares>
+        <stockPrice>159.28</stockPrice>
+        <net>-637.12</net>
+        <total>796.4</total>
+        <totalSpent>796.4</totalSpent>
+        <totalGained>159.28</totalGained>
+        <sector>Technology</sector>
+    </Stock>
+    <Stock>
+        <name>Alphabet Inc. (GOOGL)</name>
+        <ticker>GOOGL</ticker>
+        <amountOfShares>1</amountOfShares>
+        <stockPrice>104.92</stockPrice>
+        <net>0.0</net>
+        <total>104.92</total>
+        <totalSpent>104.92</totalSpent>
+        <totalGained>0.0</totalGained>
+        <sector>Communication Services</sector>
     </Stock>
 </Account>
