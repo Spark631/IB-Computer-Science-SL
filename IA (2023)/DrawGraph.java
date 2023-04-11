@@ -39,35 +39,37 @@ public class DrawGraph extends JPanel {
       g2d.drawLine(50, 50, 50, HEIGHT - 50);
 
       // Determine range of data values
-      double maxVal = Double.MIN_VALUE;
-      double minVal = Double.MAX_VALUE;
+      double maxValue = Double.MIN_VALUE;
+      double minValue = Double.MAX_VALUE;
       for (Entry<String, Double> entry : data.entrySet()) {
          // Finds the max value of the linked hash map
-         if (entry.getValue() > maxVal) {
-            maxVal = entry.getValue();
+         if (entry.getValue() > maxValue) {
+            maxValue = entry.getValue();
          }
          // Finds the min value of the linked hash map
-         if (entry.getValue() < minVal) {
-            minVal = entry.getValue();
+         if (entry.getValue() < minValue) {
+            minValue = entry.getValue();
          }
       }
-      double range = maxVal - minVal;
+      double range = maxValue - minValue;
 
       // Draw y-axis labels
-      int numLabels = 5; // Number of labels to draw on y-axis
-      double labelIncrement = range / (numLabels - 1);
-      int labelYIncrement = (HEIGHT - 100) / (numLabels - 1);
-      for (int i = 0; i < numLabels; i++) {
-         double labelVal = minVal + (i * labelIncrement);
-         String labelText = String.format("%.0f", labelVal);
+      int numberLabels = 5; // Number of labels to draw on y-axis
+      double labelIncrement = range / (numberLabels - 1);
+      int labelYIncrement = (HEIGHT - 100) / (numberLabels - 1);
+      for (int i = 0; i < numberLabels; i++) {
+         double labelValue = minValue + (i * labelIncrement);
+         String labelText = String.format("%.0f", labelValue);
          g2d.drawString(labelText, 20, (HEIGHT - 70) - (i * labelYIncrement));
       }
 
       // Draw x-axis labels
       int x = 50;
-      for (Entry<String, Double> entry : data.entrySet()) {
+      int stepSize = 10; // display every 10th date
+      for (int i = 0; i < data.size(); i += stepSize) {
+         Entry<String, Double> entry = (Entry<String, Double>) data.entrySet().toArray()[i];
          g2d.drawString(entry.getKey(), x - 15, HEIGHT - 30);
-         x += (WIDTH - 100) / data.size();
+         x += ((WIDTH - 100) / data.size()) * stepSize;
       }
 
       // Draw data points and lines
@@ -76,7 +78,7 @@ public class DrawGraph extends JPanel {
       int y, prevX = 0, prevY = 0;
       boolean isFirst = true;
       for (Entry<String, Double> entry : data.entrySet()) {
-         y = (int) ((HEIGHT - 100) - ((entry.getValue() - minVal) * ((HEIGHT - 100) / range)));
+         y = (int) ((HEIGHT - 100) - ((entry.getValue() - minValue) * ((HEIGHT - 100) / range)));
          g2d.fillOval(x - 3, y - 3, 6, 6);
          if (!isFirst) {
             g2d.drawLine(prevX, prevY, x, y);
@@ -92,10 +94,7 @@ public class DrawGraph extends JPanel {
    }
 
    public void graph(LinkedHashMap<String, Double> data) {
-      // Create test data
-      // Create and show graph
       JFrame frame = new JFrame("Graph");
-      // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       DrawGraph panel = new DrawGraph(data);
       frame.add(panel);
       frame.pack();

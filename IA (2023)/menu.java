@@ -1,57 +1,43 @@
 import java.util.Scanner;
-import java.io.*;
+import java.io.IOException;
 
 class menu {
    public void showMenu() throws IOException {
+
       Account account = new Account();
-      account.readUser();
-
-      Scanner input = new Scanner(System.in);
-      int choice = 0;
-
       StockDriver driver = new StockDriver();
+      Scanner input = new Scanner(System.in);
+      Scraper scraper = new Scraper();
 
+      account.checkUser();
+      int choice = 0;
       do {
+
          driver.options();
 
-         System.out.println("Please choose a opiton bitch");
-         choice = input.nextInt();
+         try {
+            choice = input.nextInt();
+         } catch (Exception e) {
+            System.out.println("Invalid choice");
+            showMenu();
+         }
 
          switch (choice) {
             case 1:
-               System.out.println("You have selected to create a new portfolio");
-               driver.optionOne();
+               driver.optionOne(input, account);
                break;
             case 2:
-               System.out.println("You have selected to load an existing portfolio");
-               driver.optionTwo();
+               driver.optionTwo(input, account);
                break;
             case 3:
-               System.out.println("You have selected to save the current portfolio");
-               driver.optionThree();
+               driver.optionThree(input, account);
                break;
             case 4:
-               System.out.println("You have selected to display the current portfolio");
-               driver.optionFour();
+               driver.optionFour(input, account, scraper);
                break;
             case 5:
-               System.out.println("You have selected to add a stock to the portfolio");
-               driver.optionFive();
-               break;
-            case 6:
-               System.out.println("You have selected to remove a stock from the portfolio");
-               driver.optionSix();
-               break;
-            case 7:
-               System.out.println("You have selected to sort the portfolio by price using quick sort");
-               driver.optionSeven();
-               break;
-            case 8:
-               System.out.println("Enter the stock name: ");
-               String stockName = input.next();
-
-               driver.optionEight(stockName);
-               break;
+               System.out.println("Goodbye Trader!");
+               System.exit(0);
 
             default:
                System.out.println("Invalid choice");
